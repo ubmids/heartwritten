@@ -31,11 +31,11 @@ There's no server and no account. A sealed letter lives entirely inside its link
 
 <!-- Embed the demo video here: {% embed https://youtu.be/... %} -->
 
-<!-- Optional: a link to open a sample letter in the browser -->
+Open a sample letter in your browser: [heartwritten.vercel.app/sample](https://heartwritten.vercel.app/sample). That sample's heartbeat is simulated and labelled as such; the video shows a real one.
 
 ## Code
 
-<!-- {% github ubmids/heartwritten %} -->
+{% github ubmids/heartwritten %}
 
 Setup is in the README: `npm install`, add your SmartSpectra key, `npm start`. `npm run start:sim` runs the whole thing with simulated signals if you want to try it without a key.
 
@@ -62,7 +62,8 @@ Under the hood it's an Electron app following Presage's quickstart pattern (main
 
 ## Prize Categories
 
-Most Creative or Delightful Use.
+- **Most Creative or Delightful Use:** a letter you watch being written again, in ink coloured by the writer's heartbeat, sealed with their own pulse wave.
+- **Best Thoughtful Real-World Use:** consent before the camera turns on, numbers instead of video, no server or account, and a reader that can't send anything anywhere (details below).
 
 ## Consent and Data Handling
 
