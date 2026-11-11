@@ -11,15 +11,16 @@ A handwritten letter used to tell you things the words didn't: where the pen pre
 
 **Heartwritten** brings it back with the one signal that never lies about how a sentence felt to write: your heartbeat.
 
-You write a letter on your laptop. While you type, SmartSpectra reads your pulse, breathing and smiles through the webcam. When you're done you seal it with a wax seal pressed from six seconds of your own pulse wave, so no two seals are alike.
+You write a letter on your laptop. While you type, SmartSpectra reads your pulse, breathing and smiles through the webcam, and each word takes the ink of the heartbeat that wrote it. When you're done you seal it with a wax seal pressed from six seconds of your own pulse wave, so no two seals are alike.
 
 The person you send it to taps the seal, it cracks, and they watch your letter being written again at your real pace:
 
-- the **ink warms** toward red where your heart sped up, and settles back to navy as you calmed down
+- the **ink warms** from blue-black through claret to vermilion where your heart sped up, and cools again as you calmed down
 - a small **heart in the margin beats** at your rate, sentence by sentence
 - the **paper rises and falls** with your breathing
 - words you wrote **while smiling glow**
-- **pauses** stay in, and the long ones are noted in the margin ("paused 14 seconds")
+- **pauses** stay in, and the long ones are noted in the margin beside the line ("paused 14 seconds")
+- under your signature, a **heartline** draws your whole heart rate across the letter
 - if you allow it, they see the words you **typed and took back**
 
 At the end, a card shows where your heart was quickest and where it was steadiest, with the sentences.
