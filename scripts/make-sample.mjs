@@ -1,6 +1,6 @@
 // make-sample.mjs: writes a sample letter (simulated signals, marked as a
 // sample) so the reader can be tried without the app. Prints its token and
-// writes dist/sample-letter.html.
+// writes dist/sample-letter.html and dist/reader/sample.html.
 import { writeFile, readFile } from 'node:fs/promises';
 import { LetterRecorder } from '../src/shared/recorder.js';
 import { encodeLetter } from '../src/shared/letter-format.js';
@@ -47,7 +47,9 @@ for (let i = 0; i < 180; i++) { wavePhase += (66 / 60) / 30; const p = wavePhase
 const letter = rec.finish({ from: 'Sam', to: 'Maya', day: '2026-11-12', sim: true, share: { edits: true, smiles: true } });
 const token = await encodeLetter(letter);
 const reader = await readFile(new URL('../dist/reader/index.html', import.meta.url), 'utf8');
-await writeFile(new URL('../dist/sample-letter.html', import.meta.url),
-  reader.replace('<!--__LETTER_DATA__-->', `<script id="letter-data" type="application/x-heartwritten">${token}</script>`));
+const sampleHtml = reader.replace('<!--__LETTER_DATA__-->', `<script id="letter-data" type="application/x-heartwritten">${token}</script>`);
+await writeFile(new URL('../dist/sample-letter.html', import.meta.url), sampleHtml);
+// Also served by the hosted reader at /sample, so a sample opens from a short link.
+await writeFile(new URL('../dist/reader/sample.html', import.meta.url), sampleHtml);
 await writeFile(new URL('../dist/sample-token.txt', import.meta.url), token);
 console.log(`sample letter: ${rec.text.length} chars, written over ${(t / 60000).toFixed(1)} min, token ${token.length} chars`);

@@ -1,12 +1,25 @@
 {
   "installCommand": "ELECTRON_SKIP_BINARY_DOWNLOAD=1 npm ci",
-  "buildCommand": "node scripts/build.mjs",
+  "buildCommand": "node scripts/build.mjs && node scripts/make-sample.mjs",
   "outputDirectory": "dist/reader",
   "headers": [
-    { "source": "/(.*)", "headers": [
-      { "key": "Referrer-Policy", "value": "no-referrer" },
-      { "key": "X-Content-Type-Options", "value": "nosniff" },
-      { "key": "Cache-Control", "value": "public, max-age=300" }
-    ] }
-  ]
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300"
+        }
+      ]
+    }
+  ],
+  "cleanUrls": true
 }
