@@ -40,8 +40,10 @@ The SDK ships native libraries for macOS on Apple silicon, Linux (x64 and arm64)
 and Windows x64. Measurement runs on your computer; the SDK needs a network connection
 only so Presage can check the key.
 
-To see a finished letter without the app, run `npm run sample` and open
-`dist/sample-letter.html` in a browser.
+To see a finished letter without the app, open the sample at
+https://heartwritten.vercel.app/sample, or run `npm run sample` and open
+`dist/sample-letter.html` in a browser. The sample's signals are simulated,
+and it says so.
 
 ## Sharing by link
 
@@ -52,8 +54,9 @@ reader page somewhere static and tell the writer its address:
 npm run build          # makes dist/reader/index.html, one self-contained file
 ```
 
-Deploy `dist/reader` anywhere static (a `vercel.json` is included), then put
-the address in `heartwritten.config.json`:
+The hosted reader is at https://heartwritten.vercel.app, and the writer uses it
+by default. To host your own, deploy `dist/reader` anywhere static (a
+`vercel.json` is included), then put the address in `heartwritten.config.json`:
 
 ```json
 { "readerUrl": "https://your-reader.example" }
