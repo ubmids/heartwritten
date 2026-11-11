@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Heartwritten</title>
+<meta name="description" content="A letter that carries the heartbeat it was written with.">
+<style>/*__READER_CSS__*/</style>
+</head>
+<body data-view="loading">
+<main>
+  <section class="view view-empty" aria-labelledby="empty-title">
+    <h1 id="empty-title" class="wordmark">Heartwritten</h1>
+    <p id="empty-text">Letters that carry the heartbeat they were written with. Open one from the link you were sent.</p>
+  </section>
+
+  <section class="view view-envelope" aria-labelledby="envelope-to">
+    <div class="envelope">
+      <p class="eyebrow" id="envelope-day"></p>
+      <h1 id="envelope-to" class="to"></h1>
+      <p id="envelope-from" class="from"></p>
+      <button id="seal-button" class="seal-button" aria-label="Break the seal and read">
+        <span id="seal" class="seal"></span>
+      </button>
+      <p class="hint">Tap the seal to open it.</p>
+      <p id="sim-badge" class="badge" hidden>Sample letter: the signals in it were simulated</p>
+    </div>
+    <p class="fine">This letter lives only in its link. Opening it sends nothing anywhere.</p>
+  </section>
+
+  <section class="view view-letter" aria-label="The letter">
+    <div class="desk">
+      <aside class="margin" aria-label="Their heartbeat">
+        <div id="heart" class="heart" aria-hidden="true">
+          <svg viewBox="0 0 32 29" width="30" height="27"><path fill="currentColor" d="M16 28.6 13.7 26.5C5.5 19.1 0 14.2 0 8.2 0 3.6 3.6 0 8.2 0c2.6 0 5.1 1.2 6.8 3.1h2C18.7 1.2 21.2 0 23.8 0 28.4 0 32 3.6 32 8.2c0 6-5.5 10.9-13.7 18.4z"/></svg>
+        </div>
+        <p class="bpm"><span id="heart-bpm">·</span><small>bpm</small></p>
+        <ul id="pauses" class="pauses"></ul>
+        <p id="took-back" class="took-back"></p>
+      </aside>
+      <article id="paper" class="paper">
+        <p class="eyebrow" id="letter-day"></p>
+        <p id="salutation" class="salutation"></p>
+        <div id="body-text" class="body-text"></div>
+        <p id="signature" class="signature"></p>
+        <p id="replay-sim" class="badge" hidden>Sample letter: simulated signals</p>
+      </article>
+    </div>
+    <nav class="controls" aria-label="Replay controls">
+      <button data-speed="1" aria-pressed="true">Their pace</button>
+      <button data-speed="2.5" aria-pressed="false">Faster</button>
+      <button id="skip">Show all</button>
+      <button id="sound" aria-pressed="false">Hear the heartbeat</button>
+    </nav>
+    <section id="summary" class="summary" hidden aria-labelledby="summary-title">
+      <h2 id="summary-title">While this was written</h2>
+      <div id="summary-body"></div>
+      <p class="legend"><span class="ink calm">calm ink</span> <span class="ink warm">a quicker heart</span> <span class="ink glow">a smile</span></p>
+      <div class="summary-actions">
+        <button id="replay">Watch it again</button>
+        <button id="copy-text">Copy the words</button>
+      </div>
+      <p class="fine">Heart rate and breathing are camera estimates, for feeling, not medicine. Written with Heartwritten on the Presage SmartSpectra SDK.</p>
+    </section>
+  </section>
+</main>
+<!--__LETTER_DATA__-->
+<script>/*__READER_JS__*/</script>
+</body>
+</html>

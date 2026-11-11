@@ -1,0 +1,6 @@
+node_modules/
+dist/
+release/
+.smartspectra-key
+*.log
+.DS_Store
