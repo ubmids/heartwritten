@@ -22,10 +22,10 @@ function smooth(xs, r) {
  * @param {string} [o.id='hl'] prefix for ids inside the SVG
  * @param {number} [o.stroke=1.6]
  */
-export function heartlineSvg(letter, { width = 640, height = 56, id = 'hl', stroke = 1.6 } = {}) {
+export function heartlineSvg(letter, { width = 640, height = 52, id = 'hl', stroke = 1.6 } = {}) {
   const raw = letter.vit.bpm || [];
   const base = median(raw);
-  const pts = smooth(raw, Math.max(1, Math.round((letter.vit.hz || 4) * 1.5)));
+  const pts = smooth(raw, Math.max(1, Math.round((letter.vit.hz || 4) * 0.75)));
   const live = pts.filter((v) => v > 0);
   if (live.length < 4) return '';
   let lo = Math.min(...live); let hi = Math.max(...live);

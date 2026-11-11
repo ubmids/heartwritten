@@ -62,7 +62,10 @@
 
     <div class="paper">
       <label class="field-to">To <input id="to" maxlength="60" placeholder="their name" autocomplete="off"></label>
-      <textarea id="body" spellcheck="true" placeholder="Start writing. Take your time; pauses are kept too." aria-label="Your letter"></textarea>
+      <div class="ink-field">
+        <div id="ink-mirror" class="ink-mirror" aria-hidden="true"></div>
+        <textarea id="body" spellcheck="true" placeholder="Start writing. Take your time; pauses are kept too." aria-label="Your letter"></textarea>
+      </div>
       <label class="field-from">From <input id="from" maxlength="60" placeholder="your name" autocomplete="off"></label>
     </div>
 
