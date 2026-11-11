@@ -1,6 +1,6 @@
 {
   "installCommand": "ELECTRON_SKIP_BINARY_DOWNLOAD=1 npm ci",
-  "buildCommand": "node scripts/build.mjs && node scripts/make-sample.mjs",
+  "buildCommand": "node scripts/build.mjs && node scripts/make-sample.mjs && mkdir -p dist/reader/writer-preview && cp dist/writer/index.html dist/writer/writer.css dist/writer/writer.js dist/reader/writer-preview/",
   "outputDirectory": "dist/reader",
   "headers": [
     {
