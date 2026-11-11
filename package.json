@@ -13,5 +13,15 @@
     "smoke": "node scripts/sdk-smoke.mjs",
     "sample": "node scripts/make-sample.mjs"
   },
-  "engines": { "node": ">=20" }
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@smartspectra/node-sdk": "^3.5.0"
+  },
+  "devDependencies": {
+    "electron": "^43.8.1",
+    "esbuild": "^0.25.12",
+    "jsdom": "^25.0.1"
+  }
 }

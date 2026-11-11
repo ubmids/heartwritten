@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; worker-src 'self' blob:; media-src blob:; script-src 'self'">
+<title>Heartwritten</title>
+<link rel="stylesheet" href="./writer.css">
+</head>
+<body data-step="consent">
+<main>
+
+  <!-- 1. Consent, before the camera turns on -->
+  <section class="step step-consent" aria-labelledby="consent-title">
+    <div class="card">
+      <h1 id="consent-title" class="wordmark">Heartwritten</h1>
+      <p class="lede">Write a letter. Your camera reads your heartbeat, your breathing and your smiles while you write, and the letter keeps them.</p>
+      <ul class="facts">
+        <li><b>What the camera reads:</b> heart rate, the pulse wave, breathing and smiles, estimated by the Presage SmartSpectra SDK from your face.</li>
+        <li><b>What the letter keeps:</b> numbers only, a few a second. Never video, photos or your face.</li>
+        <li><b>Where it goes:</b> nowhere until you seal it. A sealed letter lives inside its link or file, not on a server. You decide who gets it.</li>
+        <li><b>What leaves this computer while you write:</b> the SDK talks to Presage’s service to check your key and take the measurement. Presage says frames and vitals are not in its telemetry, which is off below unless you turn it on.</li>
+      </ul>
+      <fieldset class="choices">
+        <legend>Your choices</legend>
+        <label><input type="checkbox" id="opt-smiles" checked> Let the reader see where I smiled</label>
+        <label><input type="checkbox" id="opt-edits"> Let the reader see the words I take back</label>
+        <label><input type="checkbox" id="opt-telemetry"> Share SDK telemetry with Presage (session summaries and device details, linked to the key; no video or vitals)</label>
+      </fieldset>
+      <label class="agree"><input type="checkbox" id="agree"> I’m the only person on camera, and I agree to this.</label>
+      <div class="row">
+        <button id="begin" class="primary" disabled>Turn on the camera</button>
+        <span id="mode-note" class="note"></span>
+      </div>
+      <p class="fine">Camera estimates for feeling, not medicine. No diagnosis, no health advice.</p>
+    </div>
+  </section>
+
+  <!-- 2. Writing -->
+  <section class="step step-write" aria-label="Write your letter">
+    <header class="live" aria-live="polite">
+      <div class="cam"><video id="preview" autoplay playsinline muted></video><span class="rec" title="Camera on"></span></div>
+      <div class="live-heart">
+        <canvas id="wave" width="460" height="64" aria-hidden="true"></canvas>
+        <div class="live-stats">
+          <span><b id="live-bpm">—</b> bpm</span>
+          <span><b id="live-br">—</b> breaths/min</span>
+          <span id="live-smile" class="smile-dot" title="Smile">◡</span>
+        </div>
+      </div>
+      <div class="live-side">
+        <p id="hint" class="hint">Settling in…</p>
+        <p id="sim-flag" class="sim" hidden>Simulated signals</p>
+        <button id="stop-camera" class="quiet">Stop camera</button>
+      </div>
+    </header>
+
+    <div class="paper">
+      <label class="field-to">To <input id="to" maxlength="60" placeholder="their name" autocomplete="off"></label>
+      <textarea id="body" spellcheck="true" placeholder="Start writing. Take your time; pauses are kept too." aria-label="Your letter"></textarea>
+      <label class="field-from">From <input id="from" maxlength="60" placeholder="your name" autocomplete="off"></label>
+    </div>
+
+    <footer class="write-foot">
+      <span id="clock" class="note">Nothing is recorded until you type.</span>
+      <span id="notice" class="note"></span>
+      <button id="seal-it" class="primary" disabled>Seal it with my heartbeat</button>
+    </footer>
+  </section>
+
+  <!-- 3. Sealed -->
+  <section class="step step-sealed" aria-labelledby="sealed-title">
+    <div class="card center">
+      <div id="seal" class="seal"></div>
+      <h2 id="sealed-title">Sealed.</h2>
+      <p id="sealed-sub" class="lede"></p>
+      <div class="link-row">
+        <input id="link" readonly aria-label="Letter link">
+        <button id="copy" class="primary">Copy link</button>
+      </div>
+      <p id="link-note" class="note"></p>
+      <div class="row center">
+        <button id="preview-letter">Open it as they will</button>
+        <button id="save-file">Save as a file</button>
+        <button id="again" class="quiet">Write another</button>
+      </div>
+      <p class="fine">The camera is off. This letter isn’t saved anywhere on this computer; it exists in that link and any file you save. Closing this window forgets it.</p>
+    </div>
+  </section>
+
+</main>
+<script src="./writer.js"></script>
+</body>
+</html>
