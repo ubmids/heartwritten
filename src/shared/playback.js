@@ -122,17 +122,23 @@ function splitUnits(s, t) {
 
 /**
  * Ink colour for a heartbeat relative to the writer's own resting level.
- * Calm is deep ink blue, a quickened heart turns the ink warm red.
+ * At rest the ink is iron-gall blue-black. A quicker heart warms it through
+ * claret to vermilion; a slower one cools it to a clear blue-black.
  */
+export const INK = {
+  calm: [28, 34, 52],
+  warm: [[112, 28, 48], [184, 52, 28]],
+  cool: [32, 72, 150],
+};
+
 export function inkFor(bpm, baseline) {
-  if (!(bpm > 0) || !(baseline > 0)) return 'rgb(31, 41, 66)';
-  const d = Math.max(-1, Math.min(1, (bpm - baseline) / 18));
-  const calm = [31, 41, 66];
-  const warm = [168, 38, 44];
-  const cool = [24, 54, 92];
-  const [a, b, f] = d >= 0 ? [calm, warm, d] : [calm, cool, -d];
-  const mix = a.map((x, k) => Math.round(x + (b[k] - x) * f));
-  return `rgb(${mix[0]}, ${mix[1]}, ${mix[2]})`;
+  const rgb = (c) => `rgb(${c[0]}, ${c[1]}, ${c[2]})`;
+  if (!(bpm > 0) || !(baseline > 0)) return rgb(INK.calm);
+  const d = Math.max(-1, Math.min(1, (bpm - baseline) / 16));
+  const mix = (a, b, f) => a.map((x, k) => Math.round(x + (b[k] - x) * f));
+  if (d < 0) return rgb(mix(INK.calm, INK.cool, -d));
+  if (d <= 0.5) return rgb(mix(INK.calm, INK.warm[0], d / 0.5));
+  return rgb(mix(INK.warm[0], INK.warm[1], (d - 0.5) / 0.5));
 }
 
 /** Final characters of the letter, each with the time it was typed. */

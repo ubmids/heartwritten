@@ -190,10 +190,12 @@ test('player shows the writer taking a word back', () => {
 });
 
 test('ink warms with a quicker heart and stays calm otherwise', () => {
-  assert.equal(inkFor(66, 66), 'rgb(31, 41, 66)');
-  assert.equal(inkFor(0, 66), 'rgb(31, 41, 66)');
+  assert.equal(inkFor(66, 66), 'rgb(28, 34, 52)');
+  assert.equal(inkFor(0, 66), 'rgb(28, 34, 52)');
   const warm = inkFor(90, 66).match(/\d+/g).map(Number);
   assert.ok(warm[0] > 150 && warm[2] < 50);
+  const cool = inkFor(50, 66).match(/\d+/g).map(Number);
+  assert.ok(cool[2] > 120 && cool[0] < 60, 'a slower heart cools the ink');
 });
 
 test('summary finds the quickest and steadiest sentences', () => {

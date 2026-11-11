@@ -70,7 +70,9 @@ test('reader opens a letter from its link and replays it to the end', async () =
   const colours = new Set([...doc.querySelectorAll('#body-text span[style]')].map((s) => s.style.color));
   assert.ok(colours.size > 3, 'ink changes colour with the heart');
   assert.match(doc.getElementById('pauses').textContent, /paused/);
-  assert.equal(doc.getElementById('signature').textContent, '— Sam');
+  assert.equal(doc.getElementById('signature').textContent, 'Sam');
+  assert.ok(doc.querySelector('#heartline svg.heartline path'), 'the heartline is drawn under the signature');
+  assert.ok(doc.querySelector('#body-text .pz-mark'), 'pauses are anchored to their place in the text');
   assert.deepEqual(errors, []);
   win.close();
 });

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="light dark">
 <title>Heartwritten</title>
 <meta name="description" content="A letter that carries the heartbeat it was written with.">
 <style>/*__READER_CSS__*/</style>
@@ -17,35 +18,53 @@
   </section>
 
   <section class="view view-envelope" aria-labelledby="envelope-to">
-    <div class="envelope">
-      <p class="eyebrow" id="envelope-day"></p>
+    <header class="address">
+      <p class="smallcaps" id="envelope-day"></p>
       <h1 id="envelope-to" class="to"></h1>
       <p id="envelope-from" class="from"></p>
+    </header>
+    <div class="envelope">
+      <svg class="flap" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <path class="flap-side" d="M0 100 L50 52 L100 100"/>
+        <path class="flap-top" d="M0 0 H100 L50 58 Z"/>
+      </svg>
       <button id="seal-button" class="seal-button" aria-label="Break the seal and read">
         <span id="seal" class="seal"></span>
       </button>
-      <p class="hint">Tap the seal to open it.</p>
-      <p id="sim-badge" class="badge" hidden>Sample letter: the signals in it were simulated</p>
     </div>
+    <p class="hint smallcaps">Break the seal to read</p>
+    <p id="sim-badge" class="sample-note" hidden>A sample letter. The heartbeat in it was simulated.</p>
     <p class="fine">This letter lives only in its link. Opening it sends nothing anywhere.</p>
   </section>
 
   <section class="view view-letter" aria-label="The letter">
-    <div class="desk">
+    <div class="sheet">
       <aside class="margin" aria-label="Their heartbeat">
-        <div id="heart" class="heart" aria-hidden="true">
-          <svg viewBox="0 0 32 29" width="30" height="27"><path fill="currentColor" d="M16 28.6 13.7 26.5C5.5 19.1 0 14.2 0 8.2 0 3.6 3.6 0 8.2 0c2.6 0 5.1 1.2 6.8 3.1h2C18.7 1.2 21.2 0 23.8 0 28.4 0 32 3.6 32 8.2c0 6-5.5 10.9-13.7 18.4z"/></svg>
+        <div class="pulse">
+          <span id="heart" class="heart" aria-hidden="true"></span>
+          <p class="bpm"><span id="heart-bpm">·</span><small>a minute</small></p>
         </div>
-        <p class="bpm"><span id="heart-bpm">·</span><small>bpm</small></p>
         <ul id="pauses" class="pauses"></ul>
         <p id="took-back" class="took-back"></p>
       </aside>
       <article id="paper" class="paper">
-        <p class="eyebrow" id="letter-day"></p>
-        <p id="salutation" class="salutation"></p>
+        <header class="letterhead">
+          <p id="replay-sim" class="sample-note" hidden>Sample · simulated heartbeat</p>
+          <p class="smallcaps" id="letter-day"></p>
+        </header>
         <div id="body-text" class="body-text"></div>
         <p id="signature" class="signature"></p>
-        <p id="replay-sim" class="badge" hidden>Sample letter: simulated signals</p>
+        <figure class="heartline-wrap">
+          <div id="heartline" class="heartline-slot"></div>
+          <figcaption><span id="heartline-who" class="smallcaps"></span><span id="heartline-range" class="range"></span></figcaption>
+        </figure>
+        <section id="summary" class="postscript" hidden aria-labelledby="summary-title">
+          <h2 id="summary-title" class="smallcaps">While this was written</h2>
+          <div id="summary-body"></div>
+          <div class="scale" aria-hidden="true"><span>steadier</span><i></i><span>quicker</span></div>
+          <p class="links"><button id="replay">Watch it again</button><button id="copy-text">Copy the words</button></p>
+          <p class="fine">Heart rate and breathing are camera estimates, for feeling, not medicine. Written with Heartwritten on the Presage SmartSpectra SDK.</p>
+        </section>
       </article>
     </div>
     <nav class="controls" aria-label="Replay controls">
@@ -54,16 +73,6 @@
       <button id="skip">Show all</button>
       <button id="sound" aria-pressed="false">Hear the heartbeat</button>
     </nav>
-    <section id="summary" class="summary" hidden aria-labelledby="summary-title">
-      <h2 id="summary-title">While this was written</h2>
-      <div id="summary-body"></div>
-      <p class="legend"><span class="ink calm">calm ink</span> <span class="ink warm">a quicker heart</span> <span class="ink glow">a smile</span></p>
-      <div class="summary-actions">
-        <button id="replay">Watch it again</button>
-        <button id="copy-text">Copy the words</button>
-      </div>
-      <p class="fine">Heart rate and breathing are camera estimates, for feeling, not medicine. Written with Heartwritten on the Presage SmartSpectra SDK.</p>
-    </section>
   </section>
 </main>
 <!--__LETTER_DATA__-->

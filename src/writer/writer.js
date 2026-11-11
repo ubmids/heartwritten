@@ -99,6 +99,8 @@ function onMetrics(m) {
     if (app.bpmHistory.length > 400) app.bpmHistory.shift();
   }
   $('live-bpm').textContent = t.bpm ? Math.round(t.bpm) : '—';
+  // The cursor writes in the ink the heart is choosing right now.
+  if (t.bpm) $('body').style.caretColor = inkFor(t.bpm, median(app.bpmHistory));
   $('live-br').textContent = t.breathRate ? Math.round(t.breathRate) : '—';
   $('live-smile').classList.toggle('on', choices().smiles && t.smile >= 0.6);
 }
@@ -116,7 +118,7 @@ function drawWave() {
     let lo = Infinity; let hi = -Infinity;
     for (const { t, v } of tr) if (t >= tEnd - span) { lo = Math.min(lo, v); hi = Math.max(hi, v); }
     const range = hi - lo || 1;
-    ctx.lineWidth = 2.2;
+    ctx.lineWidth = 3.2;
     ctx.lineJoin = 'round';
     ctx.strokeStyle = inkFor(app.tracker.bpm, median(app.bpmHistory));
     ctx.beginPath();

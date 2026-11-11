@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; worker-src 'self' blob:; media-src blob:; script-src 'self'">
+<meta name="color-scheme" content="light dark">
 <title>Heartwritten</title>
 <link rel="stylesheet" href="./writer.css">
 </head>
@@ -11,17 +12,22 @@
 
   <!-- 1. Consent, before the camera turns on -->
   <section class="step step-consent" aria-labelledby="consent-title">
-    <div class="card">
+    <div class="sheet">
+      <p class="smallcaps muted">Before you write</p>
       <h1 id="consent-title" class="wordmark">Heartwritten</h1>
       <p class="lede">Write a letter. Your camera reads your heartbeat, your breathing and your smiles while you write, and the letter keeps them.</p>
-      <ul class="facts">
-        <li><b>What the camera reads:</b> heart rate, the pulse wave, breathing and smiles, estimated by the Presage SmartSpectra SDK from your face.</li>
-        <li><b>What the letter keeps:</b> numbers only, a few a second. Never video, photos or your face.</li>
-        <li><b>Where it goes:</b> nowhere until you seal it. A sealed letter lives inside its link or file, not on a server. You decide who gets it.</li>
-        <li><b>What leaves this computer while you write:</b> the measurement runs on this computer. The SDK contacts Presage’s service only to check the key. Presage says frames and vitals are never in its telemetry, which stays off unless you turn it on below.</li>
-      </ul>
+      <dl class="facts">
+        <dt>What the camera reads</dt>
+        <dd>Heart rate, the pulse wave, breathing and smiles, estimated by the Presage SmartSpectra SDK from your face.</dd>
+        <dt>What the letter keeps</dt>
+        <dd>Numbers only, a few a second. Never video, photos or your face.</dd>
+        <dt>Where it goes</dt>
+        <dd>Nowhere until you seal it. A sealed letter lives inside its link or file, not on a server. You decide who gets it.</dd>
+        <dt>What leaves this computer</dt>
+        <dd>The measurement runs on this computer. The SDK contacts Presage’s service only to check the key. Presage says frames and vitals are never in its telemetry, which stays off unless you turn it on below.</dd>
+      </dl>
       <fieldset class="choices">
-        <legend>Your choices</legend>
+        <legend class="smallcaps muted">Your choices</legend>
         <label><input type="checkbox" id="opt-smiles" checked> Let the reader see where I smiled</label>
         <label><input type="checkbox" id="opt-edits"> Let the reader see the words I take back</label>
         <label><input type="checkbox" id="opt-telemetry"> Share SDK telemetry with Presage (session summaries and device details, linked to the key; no video or vitals)</label>
@@ -40,16 +46,16 @@
     <header class="live" aria-live="polite">
       <div class="cam"><video id="preview" autoplay playsinline muted></video><span class="rec" title="Camera on"></span></div>
       <div class="live-heart">
-        <canvas id="wave" width="460" height="64" aria-hidden="true"></canvas>
+        <canvas id="wave" width="920" height="96" aria-hidden="true"></canvas>
         <div class="live-stats">
-          <span><b id="live-bpm">—</b> bpm</span>
-          <span><b id="live-br">—</b> breaths/min</span>
-          <span id="live-smile" class="smile-dot" title="Smile">◡</span>
+          <span><b id="live-bpm">—</b> a minute</span>
+          <span><b id="live-br">—</b> breaths</span>
+          <span id="live-smile" class="smile-dot">smiling</span>
         </div>
       </div>
       <div class="live-side">
         <p id="hint" class="hint">Settling in…</p>
-        <p id="sim-flag" class="sim" hidden>Simulated signals</p>
+        <p id="sim-flag" class="sim" hidden>Simulated heartbeat</p>
         <button id="stop-camera" class="quiet">Stop camera</button>
       </div>
     </header>
@@ -69,7 +75,7 @@
 
   <!-- 3. Sealed -->
   <section class="step step-sealed" aria-labelledby="sealed-title">
-    <div class="card center">
+    <div class="sealed center">
       <div id="seal" class="seal"></div>
       <h2 id="sealed-title">Sealed.</h2>
       <p id="sealed-sub" class="lede"></p>
@@ -78,10 +84,10 @@
         <button id="copy" class="primary">Copy link</button>
       </div>
       <p id="link-note" class="note"></p>
-      <div class="row center">
+      <div class="row center links">
         <button id="preview-letter">Open it as they will</button>
         <button id="save-file">Save as a file</button>
-        <button id="again" class="quiet">Write another</button>
+        <button id="again">Write another</button>
       </div>
       <p class="fine">The camera is off. This letter isn’t saved anywhere on this computer; it exists in that link and any file you save. Closing this window forgets it.</p>
     </div>
