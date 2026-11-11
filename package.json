@@ -1,0 +1,17 @@
+{
+  "name": "heartwritten",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Letters that carry the heartbeat you wrote them with. Built on the Presage SmartSpectra SDK.",
+  "type": "module",
+  "main": "app/main.cjs",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "build": "node scripts/build.mjs",
+    "start": "npm run build && electron .",
+    "start:sim": "npm run build && HEARTWRITTEN_SIMULATE=1 electron .",
+    "smoke": "node scripts/sdk-smoke.mjs",
+    "sample": "node scripts/make-sample.mjs"
+  },
+  "engines": { "node": ">=20" }
+}
