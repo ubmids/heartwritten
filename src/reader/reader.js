@@ -39,7 +39,34 @@ export async function boot() {
 
 function showEmpty(message) {
   document.body.dataset.view = 'empty';
-  if (message) $('empty-text').textContent = message;
+  if (message) {
+    $('empty-text').textContent = message;
+    $('empty-text').hidden = false;
+  }
+  inkSpecimen();
+}
+
+// The front page's specimen: a few lines of the sample letter in the ink a
+// rising heartbeat gives them, over the heartline that drew them.
+const SPECIMEN = [
+  ['So, slowly: ', 66],
+  ['they called this morning. ', 79],
+  ['I got it. I actually got it!', 91, true],
+  [' You were the first person I wanted to tell.', 84],
+];
+function inkSpecimen() {
+  const text = $('specimen-text');
+  if (!text || text.dataset.inked) return;
+  text.dataset.inked = '1';
+  text.innerHTML = SPECIMEN
+    .map(([s, bpm, smiled]) => `<span style="color:${inkFor(bpm, 66)}"${smiled ? ' class="smiled"' : ''}>${esc(s)}</span>`)
+    .join('');
+  // A long calm stretch first, so the line's baseline matches the text's (66).
+  const bpm = new Array(40).fill(66);
+  for (const [, b] of SPECIMEN.slice(1)) for (let i = 0; i < 12; i++) bpm.push(b);
+  for (let i = 0; i < 10; i++) bpm.push(70);
+  const curve = bpm.map((b, i) => Math.round(b + Math.sin(i / 2.2) * 1.5));
+  $('specimen-line').innerHTML = heartlineSvg({ vit: { bpm: curve, hz: 2 } }, { id: 'sp', height: 40 });
 }
 
 // ---------------------------------------------------------------------------

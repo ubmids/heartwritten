@@ -55,10 +55,38 @@ body[data-view="envelope"] .view-envelope,
 body[data-view="breaking"] .view-envelope,
 body[data-view="letter"] .view-letter { display: block; }
 
-/* Nothing to open */
-.view-empty { padding-top: 22vh; max-width: 30em; }
-.wordmark { font-weight: 400; font-style: italic; font-size: 40px; margin: 0 0 12px; letter-spacing: -0.01em; }
-.view-empty p { color: var(--on-desk-muted); margin: 0; }
+/* The front page: what this is, a specimen of the ink, a way in. */
+.view-empty { max-width: 620px; margin: 6vh auto 0; }
+.front-note { margin: 0 0 28px; color: var(--stamp); font-style: italic; }
+.front-head .smallcaps { color: var(--on-desk-muted); }
+.wordmark { font-weight: 400; font-style: italic; font-size: 52px; line-height: 1.05; margin: 6px 0 14px; letter-spacing: -0.015em; color: var(--on-desk); }
+.front-lede { font-size: 21px; line-height: 1.5; margin: 0; color: var(--on-desk); max-width: 30em; }
+.specimen {
+  margin: 36px 0 0; padding: 30px 36px 22px;
+  background: var(--tooth), var(--paper); color: var(--ink);
+  box-shadow: 0 0 0 1px rgba(60, 45, 20, 0.07), 0 24px 44px -30px rgba(40, 28, 10, 0.55);
+}
+.specimen-text { font-size: 21px; line-height: 1.62; margin: 0; }
+.specimen-text .smiled { background: linear-gradient(transparent 48%, var(--glow) 48%, var(--glow) 94%, transparent 94%); border-radius: 2px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.specimen-line { height: 40px; margin-top: 18px; }
+.specimen-line .heartline { display: block; width: 100%; height: 40px; overflow: visible; }
+.specimen figcaption { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 8px; color: var(--muted); }
+.specimen figcaption .smallcaps { font-size: 14px; }
+.specimen-key { font-size: 14px; font-style: italic; }
+.front-actions { margin: 30px 0 0; }
+.ink-button {
+  display: inline-block; background: var(--ink); color: var(--paper); text-decoration: none;
+  font-variant-caps: all-small-caps; letter-spacing: 0.1em; font-size: 18px;
+  padding: 11px 22px 12px; border-radius: 2px;
+}
+.ink-button:hover { background: #2b3450; }
+.ink-button:focus-visible { outline: 1.5px solid var(--on-desk); outline-offset: 4px; }
+@media (prefers-color-scheme: dark) { .ink-button { background: var(--paper); color: var(--ink); } .ink-button:hover { background: #fff; } }
+.front-steps { list-style: none; padding: 26px 0 0; margin: 36px 0 0; border-top: 1px solid var(--hair); color: var(--on-desk); }
+@media (prefers-color-scheme: dark) { .front-steps { border-top-color: rgba(235, 227, 212, 0.16); } }
+.front-steps li { display: grid; grid-template-columns: 72px 1fr; gap: 16px; margin: 0 0 14px; font-size: 17px; line-height: 1.55; }
+.front-steps .smallcaps { color: var(--on-desk-muted); padding-top: 0.15em; font-size: 16px; }
+.view-empty .fine { margin-top: 22px; }
 
 /* The envelope */
 .view-envelope { max-width: 600px; margin: 4vh auto 0; }
@@ -204,7 +232,12 @@ body[data-view="breaking"] .view-envelope { animation: away 0.9s ease forwards; 
 /* Phones: the screen becomes the sheet. */
 @media (max-width: 760px) {
   main { padding: 0 0 48px; }
-  .view-empty { padding: 24vh 20px 0; }
+  .view-empty { padding: 40px 20px 0; margin-top: 0; }
+  .wordmark { font-size: 44px; }
+  .front-lede { font-size: 19px; }
+  .specimen { margin-left: -20px; margin-right: -20px; padding: 24px 20px 18px; box-shadow: none; }
+  .specimen-text { font-size: 19px; }
+  .front-steps li { grid-template-columns: 1fr; gap: 0; }
   .view-envelope { padding: 40px 20px 0; margin-top: 0; }
   .to { font-size: 38px; }
   .seal { width: 112px; height: 112px; }
