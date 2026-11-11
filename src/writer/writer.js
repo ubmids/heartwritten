@@ -22,6 +22,8 @@ const app = {
   sampler: 0,
   drawer: 0,
   bpmHistory: [],
+  inks: [],
+  prevText: '',
   token: '',
   letter: null,
 };
@@ -99,6 +101,8 @@ function onMetrics(m) {
     if (app.bpmHistory.length > 400) app.bpmHistory.shift();
   }
   $('live-bpm').textContent = t.bpm ? Math.round(t.bpm) : '—';
+  // The cursor writes in the ink the heart is choosing right now.
+  if (t.bpm) $('body').style.caretColor = inkFor(t.bpm, median(app.bpmHistory));
   $('live-br').textContent = t.breathRate ? Math.round(t.breathRate) : '—';
   $('live-smile').classList.toggle('on', choices().smiles && t.smile >= 0.6);
 }
@@ -116,7 +120,7 @@ function drawWave() {
     let lo = Infinity; let hi = -Infinity;
     for (const { t, v } of tr) if (t >= tEnd - span) { lo = Math.min(lo, v); hi = Math.max(hi, v); }
     const range = hi - lo || 1;
-    ctx.lineWidth = 2.2;
+    ctx.lineWidth = 3.2;
     ctx.lineJoin = 'round';
     ctx.strokeStyle = inkFor(app.tracker.bpm, median(app.bpmHistory));
     ctx.beginPath();
@@ -135,7 +139,49 @@ function drawWave() {
 // ---------------------------------------------------------------------------
 // Writing
 
+// The words take the ink of the heart that wrote them, as you write. The
+// textarea's own text is transparent; a mirror behind it draws the ink.
+const CALM_INK = inkFor(0, 0);
+function inkNow() {
+  return app.tracker.bpm ? inkFor(app.tracker.bpm, median(app.bpmHistory)) : CALM_INK;
+}
+
+function inkEdit(next) {
+  const prev = app.prevText;
+  const n = Math.min(prev.length, next.length);
+  let a = 0;
+  while (a < n && prev[a] === next[a]) a++;
+  let b = 0;
+  while (b < n - a && prev[prev.length - 1 - b] === next[next.length - 1 - b]) b++;
+  const added = next.length - a - b;
+  app.inks.splice(a, prev.length - a - b, ...new Array(Math.max(0, added)).fill(inkNow()));
+  app.prevText = next;
+  drawInk();
+}
+
+function drawInk() {
+  const text = app.prevText;
+  let html = '';
+  let i = 0;
+  while (i < text.length) {
+    const c = app.inks[i] || CALM_INK;
+    let j = i;
+    while (j < text.length && (app.inks[j] || CALM_INK) === c) j++;
+    html += `<span style="color:${c}">${escapeHtml(text.slice(i, j))}</span>`;
+    i = j;
+  }
+  $('ink-mirror').innerHTML = `${html}${text.endsWith('\n') ? ' ' : ''}`;
+  const ta = $('body');
+  ta.style.height = 'auto';
+  ta.style.height = `${Math.max(ta.scrollHeight, 0)}px`;
+}
+
+function escapeHtml(s) {
+  return s.replace(/[<>&]/g, (ch) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[ch]));
+}
+
 function onType(e) {
+  inkEdit(e.target.value);
   app.recorder.edit(e.target.value);
   if (app.simulated && app.source && e.data === '!') app.source.bump(0.5);
   $('seal-it').disabled = !e.target.value.trim();

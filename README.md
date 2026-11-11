@@ -70,7 +70,7 @@ and the letter in the `#` part of the link never reaches the host's logs.
 
 | Signal (SmartSpectra) | While writing | In the letter |
 | --- | --- | --- |
-| Pulse rate (`cardio.pulseRate`, stable values only) | Live number and a trace drawn in the ink colour | Ink colour per character: calm navy near the writer's own median, warming toward red as the heart quickens, cooling as it settles. A beating heart in the margin keeps time. The closing card finds the quickest and steadiest sentences. |
+| Pulse rate (`cardio.pulseRate`, stable values only) | Live number, and each word takes its ink as you type it | Ink colour per character: iron-gall blue-black near the writer's own median, warming through claret to vermilion as the heart quickens, cooling to a clear blue-black as it settles. A pulse in the margin keeps time, and a heartline under the signature draws the whole letter's heart rate. The postscript finds the quickest and steadiest sentences. |
 | Pulse wave (`cardio.arterialPressureTrace`) | Live trace | The wax seal: six seconds of the wave, wrapped into a ring and pressed into wax. Every seal is different. |
 | Breathing (`breathing.upperTrace`, `breathing.rate`) | Breaths a minute | The paper rises and falls with the writer's breathing as it replays. |
 | Smiles (`face.expression`, happy) | A small mark lights up | Words written while smiling glow softly. Optional. |
@@ -103,6 +103,7 @@ src/shared/
   playback.js          Replays the edits and maps the heart to ink
   summary.js           Quickest and steadiest sentences, smiles, words taken back
   seal.js              Draws the wax seal from the pulse wave
+  heartline.js         Draws the letter's heart rate as one line of ink
   sim-source.js        Simulated SDK output for development and tests
 test/                  node --test: the core, plus the built pages in jsdom
 ```
