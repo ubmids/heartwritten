@@ -10,34 +10,48 @@
 <body data-step="consent">
 <main>
 
-  <!-- 1. Consent, before the camera turns on -->
+  <!-- 1. Welcome and consent, before the camera turns on -->
   <section class="step step-consent" aria-labelledby="consent-title">
-    <div class="sheet">
-      <p class="smallcaps muted">Before you write</p>
-      <h1 id="consent-title" class="wordmark">Heartwritten</h1>
-      <p class="lede">Write a letter. Your camera reads your heartbeat, your breathing and your smiles while you write, and the letter keeps them.</p>
-      <dl class="facts">
-        <dt>What the camera reads</dt>
-        <dd>Heart rate, the pulse wave, breathing and smiles, estimated by the Presage SmartSpectra SDK from your face.</dd>
-        <dt>What the letter keeps</dt>
-        <dd>Numbers only, a few a second. Never video, photos or your face.</dd>
-        <dt>Where it goes</dt>
-        <dd>Nowhere until you seal it. A sealed letter lives inside its link or file, not on a server. You decide who gets it.</dd>
-        <dt>What leaves this computer</dt>
-        <dd>The measurement runs on this computer. The SDK contacts Presage’s service only to check the key. Presage says frames and vitals are never in its telemetry, which stays off unless you turn it on below.</dd>
-      </dl>
-      <fieldset class="choices">
-        <legend class="smallcaps muted">Your choices</legend>
-        <label><input type="checkbox" id="opt-smiles" checked> Let the reader see where I smiled</label>
-        <label><input type="checkbox" id="opt-edits"> Let the reader see the words I take back</label>
-        <label><input type="checkbox" id="opt-telemetry"> Share SDK telemetry with Presage (session summaries and device details, linked to the key; no video or vitals)</label>
+    <div class="welcome">
+      <p class="brand"><span class="brand-dot" aria-hidden="true"></span>Heartwritten</p>
+      <h1 id="consent-title">Write a letter that carries your heartbeat.</h1>
+      <p class="lede">While you write, your camera reads your pulse, your breathing and your smiles. Whoever you send it to watches the letter appear again at your pace, in ink coloured by your heart.</p>
+
+      <ol class="how">
+        <li><span class="how-n">1</span><div><b>Write</b><span>Type as you normally would. Your pauses are kept too.</span></div></li>
+        <li><span class="how-n">2</span><div><b>Seal</b><span>Your pulse wave is pressed into a wax seal.</span></div></li>
+        <li><span class="how-n">3</span><div><b>Send</b><span>Share one private link. Nothing is stored on a server.</span></div></li>
+      </ol>
+
+      <fieldset class="card choices">
+        <legend class="label">In your letter</legend>
+        <label class="switch-row"><span><b>Show where I smiled</b><small>The words glow softly where you smiled.</small></span><input type="checkbox" class="switch" id="opt-smiles" checked></label>
+        <label class="switch-row"><span><b>Show the words I delete</b><small>They appear and are taken back as they read.</small></span><input type="checkbox" class="switch" id="opt-edits"></label>
       </fieldset>
-      <label class="agree"><input type="checkbox" id="agree"> I’m the only person on camera, and I agree to this.</label>
-      <div class="row">
-        <button id="begin" class="primary" disabled>Turn on the camera</button>
-        <span id="mode-note" class="note"></span>
+
+      <details class="privacy">
+        <summary>What the camera reads, and where it goes</summary>
+        <dl class="facts">
+          <dt>What it reads</dt>
+          <dd>Heart rate, the pulse wave, breathing and smiles, estimated from your face by the Presage SmartSpectra SDK.</dd>
+          <dt>What the letter keeps</dt>
+          <dd>Numbers only, a few a second. Never video, photos or your face.</dd>
+          <dt>Where it goes</dt>
+          <dd>Nowhere until you seal it. A sealed letter lives inside its link or file, not on a server. You decide who gets it.</dd>
+          <dt>What leaves this computer</dt>
+          <dd>The measurement runs here. The SDK contacts Presage only to check the key. Presage says frames and vitals are never in its telemetry, which stays off unless you turn it on below.</dd>
+        </dl>
+        <label class="check"><input type="checkbox" id="opt-telemetry"> Share SDK telemetry with Presage (session summaries and device details, linked to the key; no video or vitals)</label>
+      </details>
+
+      <div class="start">
+        <label class="check agree"><input type="checkbox" id="agree"> I’m the only person on camera, and I agree to this.</label>
+        <div class="row">
+          <button id="begin" class="btn primary" disabled>Turn on the camera</button>
+          <span id="mode-note" class="note"></span>
+        </div>
       </div>
-      <p class="fine">Camera estimates for feeling, not medicine. No diagnosis, no health advice.</p>
+      <p class="fine">Camera estimates, for feeling, not medicine. No diagnosis, no health advice.</p>
     </div>
   </section>
 
@@ -48,51 +62,58 @@
       <div class="live-heart">
         <canvas id="wave" width="920" height="96" aria-hidden="true"></canvas>
         <div class="live-stats">
-          <span><b id="live-bpm">—</b> a minute</span>
+          <span><b id="live-bpm">—</b> bpm</span>
           <span><b id="live-br">—</b> breaths</span>
           <span id="live-smile" class="smile-dot">smiling</span>
         </div>
       </div>
       <div class="live-side">
         <p id="hint" class="hint">Settling in…</p>
-        <p id="sim-flag" class="sim" hidden>Simulated heartbeat</p>
-        <button id="stop-camera" class="quiet">Stop camera</button>
+        <p id="sim-flag" class="pill sim" hidden>Simulated heartbeat</p>
+        <button id="stop-camera" class="btn ghost small">Stop camera</button>
       </div>
     </header>
 
     <div class="paper">
-      <label class="field-to">To <input id="to" maxlength="60" placeholder="their name" autocomplete="off"></label>
+      <label class="field-to"><span>To</span><input id="to" maxlength="60" placeholder="Their name" autocomplete="off"></label>
       <div class="ink-field">
         <div id="ink-mirror" class="ink-mirror" aria-hidden="true"></div>
         <textarea id="body" spellcheck="true" placeholder="Start writing. Take your time; pauses are kept too." aria-label="Your letter"></textarea>
       </div>
-      <label class="field-from">From <input id="from" maxlength="60" placeholder="your name" autocomplete="off"></label>
+      <label class="field-from"><span>From</span><input id="from" maxlength="60" placeholder="Your name" autocomplete="off"></label>
     </div>
 
     <footer class="write-foot">
-      <span id="clock" class="note">Nothing is recorded until you type.</span>
-      <span id="notice" class="note"></span>
-      <button id="seal-it" class="primary" disabled>Seal it with my heartbeat</button>
+      <div class="foot-notes">
+        <span id="clock" class="note">Nothing is recorded until you type.</span>
+        <span id="notice" class="note"></span>
+      </div>
+      <button id="seal-it" class="btn primary" disabled>Seal it with my heartbeat</button>
     </footer>
   </section>
 
   <!-- 3. Sealed -->
   <section class="step step-sealed" aria-labelledby="sealed-title">
-    <div class="sealed center">
+    <div class="sealed">
       <div id="seal" class="seal"></div>
       <h2 id="sealed-title">Sealed.</h2>
       <p id="sealed-sub" class="lede"></p>
-      <div class="link-row">
-        <input id="link" readonly aria-label="Letter link">
-        <button id="copy" class="primary">Copy link</button>
+
+      <div class="card share">
+        <p class="label">Send them this private link</p>
+        <div class="link-row">
+          <input id="link" readonly aria-label="Letter link">
+          <button id="copy" class="btn primary">Copy link</button>
+        </div>
+        <p id="link-note" class="note"></p>
       </div>
-      <p id="link-note" class="note"></p>
-      <div class="row center links">
-        <button id="preview-letter">Open it as they will</button>
-        <button id="save-file">Save as a file</button>
-        <button id="again">Write another</button>
+
+      <div class="row actions">
+        <button id="preview-letter" class="btn secondary">Open it as they will</button>
+        <button id="save-file" class="btn secondary">Save as a file</button>
       </div>
-      <p class="fine">The camera is off. This letter isn’t saved anywhere on this computer; it exists in that link and any file you save. Closing this window forgets it.</p>
+      <button id="again" class="btn link">Write another letter</button>
+      <p class="fine">The camera is off. This letter isn’t saved on this computer. It exists only in that link and any file you save, so closing this window forgets it.</p>
     </div>
   </section>
 

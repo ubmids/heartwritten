@@ -15,27 +15,27 @@
   <section class="view view-empty" aria-labelledby="empty-title">
     <p id="empty-text" class="front-note" hidden></p>
     <header class="front-head">
-      <p class="smallcaps">Letters sealed with a heartbeat</p>
-      <h1 id="empty-title" class="wordmark">Heartwritten</h1>
+      <p class="brand"><span class="brand-dot" aria-hidden="true"></span>Heartwritten</p>
+      <h1 id="empty-title" class="wordmark">Letters that carry the heartbeat they were written with.</h1>
       <p class="front-lede">Write a letter while your camera reads your heartbeat. Whoever you send it to watches it being written again, at your pace, every word in the ink your heart gave it.</p>
     </header>
     <figure class="specimen">
       <p id="specimen-text" class="specimen-text">So, slowly: they called this morning. I got it. I actually got it! You were the first person I wanted to tell.</p>
       <div id="specimen-line" class="specimen-line" aria-hidden="true"></div>
-      <figcaption><span class="smallcaps">From a sample letter</span><span class="specimen-key">steady in navy, racing in red</span></figcaption>
+      <figcaption><span class="cap">From a sample letter</span><span class="specimen-key"><i class="key-dot calm"></i>steady <i class="key-dot fast"></i>racing</span></figcaption>
     </figure>
     <p class="front-actions"><a class="ink-button" href="sample">Read a sample letter</a></p>
     <ol class="front-steps">
-      <li><span class="smallcaps">Write</span> in the Heartwritten app on a Mac. The Presage SmartSpectra SDK reads your pulse, breathing and smiles from the camera, on your computer.</li>
-      <li><span class="smallcaps">Seal</span> it. The letter keeps a few numbers a second, never video, and lives only inside its link or file.</li>
-      <li><span class="smallcaps">Send</span> the link. It opens here, sending nothing to any server.</li>
+      <li><span class="step-n">1</span><div><b>Write</b> in the Heartwritten app on a Mac. The Presage SmartSpectra SDK reads your pulse, breathing and smiles from the camera, on your computer.</div></li>
+      <li><span class="step-n">2</span><div><b>Seal</b> it. The letter keeps a few numbers a second, never video, and lives only inside its link or file.</div></li>
+      <li><span class="step-n">3</span><div><b>Send</b> the link. It opens here, sending nothing to any server.</div></li>
     </ol>
     <p class="fine">The writer is a Mac app. Heart rate and breathing are camera estimates, for feeling, not medicine.</p>
   </section>
 
   <section class="view view-envelope" aria-labelledby="envelope-to">
     <header class="address">
-      <p class="smallcaps" id="envelope-day"></p>
+      <p class="cap" id="envelope-day"></p>
       <h1 id="envelope-to" class="to"></h1>
       <p id="envelope-from" class="from"></p>
     </header>
@@ -48,7 +48,7 @@
         <span id="seal" class="seal"></span>
       </button>
     </div>
-    <p class="hint smallcaps">Break the seal to read</p>
+    <div class="open-row"><button id="open-letter" class="btn primary" type="button">Open the letter</button><p class="hint">or press the seal</p></div>
     <p id="sim-badge" class="sample-note" hidden>A sample letter. The heartbeat in it was simulated.</p>
     <p class="fine">This letter lives only in its link. Opening it sends nothing anywhere.</p>
   </section>
@@ -58,7 +58,7 @@
       <aside class="margin" aria-label="Their heartbeat">
         <div class="pulse">
           <span id="heart" class="heart" aria-hidden="true"></span>
-          <p class="bpm"><span id="heart-bpm">·</span><small>a minute</small></p>
+          <p class="bpm"><span id="heart-bpm">·</span><small>beats a minute</small></p>
         </div>
         <ul id="pauses" class="pauses"></ul>
         <p id="took-back" class="took-back"></p>
@@ -66,19 +66,19 @@
       <article id="paper" class="paper">
         <header class="letterhead">
           <p id="replay-sim" class="sample-note" hidden>Sample · simulated heartbeat</p>
-          <p class="smallcaps" id="letter-day"></p>
+          <p class="cap" id="letter-day"></p>
         </header>
         <div id="body-text" class="body-text"></div>
         <p id="signature" class="signature"></p>
         <figure class="heartline-wrap">
           <div id="heartline" class="heartline-slot"></div>
-          <figcaption><span id="heartline-who" class="smallcaps"></span><span id="heartline-range" class="range"></span></figcaption>
+          <figcaption><span id="heartline-who" class="cap"></span><span id="heartline-range" class="range"></span></figcaption>
         </figure>
         <section id="summary" class="postscript" hidden aria-labelledby="summary-title">
-          <h2 id="summary-title" class="smallcaps">While this was written</h2>
+          <h2 id="summary-title" class="cap">While this was written</h2>
           <div id="summary-body"></div>
           <div class="scale" aria-hidden="true"><span>steadier</span><i></i><span>quicker</span></div>
-          <p class="links"><button id="replay">Watch it again</button><button id="copy-text">Copy the words</button></p>
+          <p class="links"><button id="replay" class="btn primary">Watch it again</button><button id="copy-text" class="btn secondary">Copy the words</button></p>
           <p class="fine">Heart rate and breathing are camera estimates, for feeling, not medicine. Written with Heartwritten on the Presage SmartSpectra SDK.</p>
         </section>
       </article>

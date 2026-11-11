@@ -86,6 +86,7 @@ function showEnvelope(letter) {
   if (base > 0) $('seal').style.setProperty('--beat', `${(60 / base).toFixed(3)}s`);
   const open = () => openLetter(letter);
   $('seal-button').addEventListener('click', open, { once: true });
+  $('open-letter').addEventListener('click', () => $('seal-button').click(), { once: true });
 }
 
 // ---------------------------------------------------------------------------
