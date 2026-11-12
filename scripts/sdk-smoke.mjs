@@ -1,13 +1,16 @@
 // sdk-smoke.mjs
 // Headless check that the SmartSpectra SDK loads and that Heartwritten reads
-// its packets. With a key and a short face video it runs a real measurement:
+// its packets. With a key (in .smartspectra-key or SMARTSPECTRA_API_KEY) and
+// a short face video it runs a real measurement:
 //
-//   SMARTSPECTRA_API_KEY=... npm run smoke -- path/to/face-clip.mp4
+//   npm run smoke -- path/to/face-clip.mp4
 //
-// Without a key it only checks that the native runtime loads.
+// Without a clip it only checks that the native runtime loads and says
+// whether a key was found. The key itself is never printed.
 
 import { createRequire } from 'node:module';
 import { VitalsTracker } from '../src/shared/vitals.js';
+import { findKey } from './find-key.mjs';
 
 const require = createRequire(import.meta.url);
 const ss = require('@smartspectra/node-sdk');
@@ -21,10 +24,12 @@ try {
   console.log(`Camera discovery unavailable here (${e.message})`);
 }
 
-const key = process.env.SMARTSPECTRA_API_KEY;
+const { key, source } = findKey();
 const clip = process.argv[2];
+console.log(key ? `Key found in ${source} (not shown).` : 'No key found. Put one in .smartspectra-key or set SMARTSPECTRA_API_KEY.');
 if (!key || !clip) {
-  console.log('No key or clip given: load check passed. Pass both to run a real measurement.');
+  console.log('Load check passed. The key is checked by Presage when a measurement starts:');
+  console.log('run `npm run smoke -- path/to/face-clip.mp4` with a key, or just `npm start`.');
   process.exit(0);
 }
 
