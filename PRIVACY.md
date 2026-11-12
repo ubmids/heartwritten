@@ -22,26 +22,43 @@ You choose, before you start:
 
 - **Kept:** the letter's text, when each character was typed, and numbers
   sampled four times a second: heart rate, a breathing value and (if you
-  allow it) a smile score. Six seconds of the pulse wave for the seal.
+  allow it) a smile score. Six seconds of the pulse wave for the seal. The
+  names you type in "To" and "From", and the date you sealed it (the day
+  only, no time of day).
 - **Never kept:** video, photos, frames or anything that shows your face.
-  Words you delete are dropped unless you chose to share them.
+  Words you delete are dropped unless you chose to share them. If you turn
+  "Show where I smiled" off, smiles are not requested from the SDK at all.
 
 ## Where it goes
 
-- **While you write**, nothing is saved to disk. The letter exists only in
-  the app's memory.
+- **While you write**, Heartwritten saves nothing to disk. The letter exists
+  only in the app's memory. Nothing is recorded until you type the first
+  character.
 - **The SmartSpectra SDK** measures on your computer. Presage's documentation
   says all metric computation runs on-device and the SDK calls Presage's
   service only to check the API key, so it needs a network connection while
   measuring. Presage says its telemetry does not include frames or vitals. Telemetry
   is off in Heartwritten unless you turn it on; if you do, Presage receives
-  session summaries and device details linked to your API key.
+  session summaries and device details linked to your API key. The SDK is
+  Presage's own code, so what it sends is Presage's statement, not something
+  Heartwritten can enforce. Heartwritten's own code makes no network requests.
 - **When you seal it**, the letter is packed into a token that lives in the link
   (after the `#`, which browsers don't send to servers) or in an HTML file you
-  save. Heartwritten has no server and no account. Nobody has the letter until
-  you send the link or file to them.
-- **The reader page** can't send anything: its Content Security Policy blocks
-  every network request, and it loads nothing from anywhere else.
+  save. Heartwritten has no backend, no database and no account. Nobody has
+  the letter until you send the link or file to them.
+- **The reader page** is one static HTML file. When someone opens a link, their
+  browser fetches that page from wherever it is hosted (by default
+  heartwritten.vercel.app), and the host sees what any website sees: an IP
+  address, a browser and a time. It does not see the letter, because the
+  letter is in the `#` part of the link. Once loaded, the page can't send
+  anything: its Content Security Policy blocks scripts from making network
+  requests, it loads nothing from anywhere else, and it sets no cookies and
+  uses no browser storage. A letter saved as a file opens with no network at
+  all.
+- **The app itself** is built on Electron (Chromium). On Windows and Linux,
+  Chromium may download a spelling dictionary the first time you type; the
+  spell check itself runs on your computer. On macOS it uses the system's own
+  spell checker.
 
 ## How long it lasts, and deleting it
 

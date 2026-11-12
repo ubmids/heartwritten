@@ -13,8 +13,9 @@ rushed, the ink warming where your heart sped up, the page rising and falling
 with your breath, a soft glow where you smiled. At the end they see where your
 heart was quickest and where it was steadiest.
 
-Nothing goes to a server. A sealed letter lives inside its link (in the part
-after `#`, which browsers never send) or inside a single HTML file.
+The letter never goes to a server. A sealed letter lives inside its link (in
+the part after `#`, which browsers never send) or inside a single HTML file.
+There is no account and no database.
 
 ## Try it
 
@@ -26,19 +27,27 @@ npm run start:sim
 ```
 
 `start:sim` runs the whole app with simulated signals, so you can try it with
-no key. Letters written this way are marked as samples, everywhere.
+no key and no camera. Letters written this way are marked as samples,
+everywhere. The first start downloads the Electron runtime (about 100 MB), so
+give it a minute.
+
+`npm test` runs the tests and needs no key either.
 
 To read the real thing:
 
 1. Get an API key from [physiology.presagetech.com](https://physiology.presagetech.com).
 2. Put it in a file called `.smartspectra-key` in this folder (it's git-ignored),
    or set `SMARTSPECTRA_API_KEY` in your shell.
-3. Check the SDK and key work: `npm run smoke`
+3. Check the SDK loads and the key is found: `npm run smoke`. It says where it
+   found the key and never prints it. Presage checks the key itself when a
+   measurement starts, so to test that too, pass a short video of a face:
+   `npm run smoke -- path/to/face-clip.mp4`
 4. Write a letter: `npm start`
 
 The SDK ships native libraries for macOS on Apple silicon, Linux (x64 and arm64)
-and Windows x64. Measurement runs on your computer; the SDK needs a network connection
-only so Presage can check the key.
+and Windows x64. Heartwritten has been run on macOS on Apple silicon only.
+Measurement runs on your computer. Presage's documentation says the SDK needs a
+network connection only so Presage can check the key.
 
 To see a finished letter without the app, open the sample at
 https://heartwritten.vercel.app/sample, or run `npm run sample` and open
@@ -63,8 +72,10 @@ by default. To host your own, deploy `dist/reader` anywhere static (a
 ```
 
 or set `HEARTWRITTEN_READER_URL`. The reader has a Content Security Policy of
-`default-src 'none'; connect-src 'none'`, so it can't send anything anywhere,
-and the letter in the `#` part of the link never reaches the host's logs.
+`default-src 'none'; connect-src 'none'`, so once it has loaded it can't send
+anything anywhere. Whoever hosts the page sees an ordinary page request (an IP
+address and a browser), as any website does, but the letter in the `#` part of
+the link never reaches the host or its logs.
 
 ## How it responds to human signals
 
@@ -87,12 +98,14 @@ read, what is kept and where it goes. See [PRIVACY.md](PRIVACY.md) for the full
 data handling, including the SDK's telemetry, which is off unless you turn it on.
 
 Heartwritten is for feeling, not medicine. Heart rate and breathing are camera
-estimates. It makes no diagnosis and gives no health advice.
+estimates. It makes no diagnosis, gives no health advice and isn't for
+monitoring anyone.
 
 ## How it's built
 
 ```
 app/main.cjs           Electron main: window, camera permission, SDK IPC, key lookup
+scripts/               Build, the sample letter, and the SDK load check (`npm run smoke`)
 src/writer/            The writing desk (consent → write → seal)
   sdk-source.js        SmartSpectra renderer SDK, events decoded into metrics
 src/reader/            The reader, built into one self-contained HTML file
@@ -108,7 +121,7 @@ src/shared/
 test/                  node --test: the core, plus the built pages in jsdom
 ```
 
-`npm test` builds everything and runs 25 tests, including the reader replaying
+`npm test` builds everything and runs 28 tests, including the reader replaying
 a full letter and the writer going from consent to a sealed letter in
 simulated mode.
 
