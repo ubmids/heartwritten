@@ -40,7 +40,7 @@ function createWindow() {
     width: 1040,
     height: 860,
     minWidth: 720,
-    backgroundColor: '#e7dcc7',
+    backgroundColor: '#13100e',
     title: 'Heartwritten',
     webPreferences: {
       preload: path.join(DIST, 'preload.cjs'),
@@ -66,7 +66,7 @@ function lockDown(win) {
 function openPreview(token) {
   if (!/^v1\.[A-Za-z0-9_-]+$/.test(token)) return false;
   const win = new BrowserWindow({
-    width: 900, height: 900, title: 'Your letter, as they will see it', backgroundColor: '#e9dfcc',
+    width: 900, height: 900, title: 'Your letter, as they will see it', backgroundColor: '#13100e',
     webPreferences: { contextIsolation: true, sandbox: true, nodeIntegration: false },
   });
   win.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));

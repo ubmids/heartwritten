@@ -4,35 +4,26 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
-<meta name="color-scheme" content="light dark">
-<title>Heartwritten</title>
-<meta name="description" content="A letter that carries the heartbeat it was written with.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="dark">
+<title>Heartwritten · letters that carry a heartbeat</title>
+<meta name="description" content="A letter that carries the heartbeat it was written with. Watch it written again at the writer’s pace, with their heartline in the margin.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Heartwritten">
+<meta property="og:title" content="A letter that carries a heartbeat">
+<meta property="og:description" content="Open it and watch it written again at the writer’s pace, the ink warming where their heart sped up.">
+<meta property="og:image" content="__SITE__og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A letter on a desk at night. A heartline runs down its margin and the ink turns red where the writer’s heart sped up.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%239e2b25'/%3E%3Ccircle cx='32' cy='32' r='21' fill='none' stroke='%236c1219' stroke-width='2'/%3E%3Cpath d='M12 34h11l4-6 5 17 6-27 5 16h9' fill='none' stroke='%23f3c9c2' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>/*__READER_CSS__*/</style>
 </head>
 <body data-view="loading">
+<noscript><p class="slip">This letter is replayed by a small script inside this page, so it needs JavaScript turned on. Nothing is sent anywhere.</p></noscript>
 <main>
-  <section class="view view-empty" aria-labelledby="empty-title">
-    <p id="empty-text" class="front-note" hidden></p>
-    <header class="front-head">
-      <p class="brand"><span class="brand-dot" aria-hidden="true"></span>Heartwritten</p>
-      <h1 id="empty-title" class="wordmark">Letters that carry the heartbeat they were written with.</h1>
-      <p class="front-lede">Write a letter while your camera reads your heartbeat. Whoever you send it to watches it being written again, at your pace, every word in the ink your heart gave it.</p>
-    </header>
-    <figure class="specimen">
-      <p id="specimen-text" class="specimen-text">So, slowly: they called this morning. I got it. I actually got it! You were the first person I wanted to tell.</p>
-      <div id="specimen-line" class="specimen-line" aria-hidden="true"></div>
-      <figcaption><span class="cap">From a sample letter</span><span class="specimen-key"><i class="key-dot calm"></i>steady <i class="key-dot fast"></i>racing</span></figcaption>
-    </figure>
-    <p class="front-actions"><a class="ink-button" href="sample">Read a sample letter</a></p>
-    <ol class="front-steps">
-      <li><span class="step-n">1</span><div><b>Write</b> in the Heartwritten app on a Mac. The Presage SmartSpectra SDK reads your pulse, breathing and smiles from the camera, on your computer.</div></li>
-      <li><span class="step-n">2</span><div><b>Seal</b> it. The letter keeps a few numbers a second, never video, and lives only inside its link or file.</div></li>
-      <li><span class="step-n">3</span><div><b>Send</b> the link. It opens here, sending nothing to any server.</div></li>
-    </ol>
-    <p class="fine">The writer is a Mac app. Heart rate and breathing are camera estimates, for feeling, not medicine.</p>
-  </section>
-
+  <p class="view view-loading slip" role="status">Opening the letter…</p>
   <section class="view view-envelope" aria-labelledby="envelope-to">
     <header class="address">
       <p class="cap" id="envelope-day"></p>
@@ -48,41 +39,52 @@
         <span id="seal" class="seal"></span>
       </button>
     </div>
-    <div class="open-row"><button id="open-letter" class="btn primary" type="button">Open the letter</button><p class="hint">or press the seal</p></div>
-    <p id="sim-badge" class="sample-note" hidden>A sample letter. The heartbeat in it was simulated.</p>
+    <p class="open-row"><button id="open-letter" class="text-btn" type="button">Press the seal to open it</button></p>
+    <p id="sim-badge" class="cap sample-note" hidden>A sample letter · its heartbeat is simulated</p>
     <p class="fine">This letter lives only in its link. Opening it sends nothing anywhere.</p>
   </section>
 
   <section class="view view-letter" aria-label="The letter">
-    <div class="sheet">
-      <aside class="margin" aria-label="Their heartbeat">
-        <div class="pulse">
-          <span id="heart" class="heart" aria-hidden="true"></span>
-          <p class="bpm"><span id="heart-bpm">·</span><small>beats a minute</small></p>
-        </div>
-        <ul id="pauses" class="pauses"></ul>
-        <p id="took-back" class="took-back"></p>
-      </aside>
+    <p id="empty-text" class="slip" role="alert" hidden></p>
+    <h1 id="front-title" class="brand" hidden><span class="brand-dot" aria-hidden="true"></span>Heartwritten</h1>
+    <div class="sheet-wrap">
       <article id="paper" class="paper">
-        <header class="letterhead">
-          <p id="replay-sim" class="sample-note" hidden>Sample · simulated heartbeat</p>
-          <p class="cap" id="letter-day"></p>
-        </header>
-        <div id="body-text" class="body-text"></div>
-        <p id="signature" class="signature"></p>
-        <figure class="heartline-wrap">
-          <div id="heartline" class="heartline-slot"></div>
-          <figcaption><span id="heartline-who" class="cap"></span><span id="heartline-range" class="range"></span></figcaption>
-        </figure>
-        <section id="summary" class="postscript" hidden aria-labelledby="summary-title">
-          <h2 id="summary-title" class="cap">While this was written</h2>
-          <div id="summary-body"></div>
-          <div class="scale" aria-hidden="true"><span>steadier</span><i></i><span>quicker</span></div>
-          <p class="links"><button id="replay" class="btn primary">Watch it again</button><button id="copy-text" class="btn secondary">Copy the words</button></p>
-          <p class="fine">Heart rate and breathing are camera estimates, for feeling, not medicine. Written with Heartwritten on the Presage SmartSpectra SDK.</p>
-        </section>
+        <aside id="strip" class="strip" aria-label="The writer’s heartbeat">
+          <svg id="trace" class="trace" aria-hidden="true"></svg>
+          <span id="heart" class="heart" aria-hidden="true" hidden></span>
+          <p id="pulse" class="pulse" hidden><span id="heart-bpm" class="figure">·</span><span class="unit"><span class="u1">beats </span>a minute</span></p>
+        </aside>
+        <div id="page" class="page">
+          <header class="letterhead">
+            <p id="replay-sim" class="cap" hidden>Sample · simulated heartbeat</p>
+            <p class="cap" id="letter-day"></p>
+          </header>
+          <div id="body-text" class="body-text"></div>
+          <p id="signature" class="signature"></p>
+          <section id="summary" class="postscript" hidden aria-labelledby="summary-title">
+            <h2 id="summary-title">P.S.</h2>
+            <div id="summary-body"></div>
+            <p class="scale cap" aria-hidden="true"><span>steadier</span><i></i><span>quicker</span></p>
+            <p class="links"><button id="replay" class="text-btn">Watch it again</button><button id="copy-text" class="text-btn">Copy the words</button></p>
+            <p class="fine">Heart rate and breathing are camera estimates, for feeling, not medicine. Written with Heartwritten on the Presage SmartSpectra SDK.</p>
+          </section>
+          <section id="front-end" class="front-end" hidden>
+            <p class="front-link"><a id="sample-link" href="sample">Read a sample letter</a></p>
+            <details id="write-entry" class="write-entry">
+              <summary>Write a letter</summary>
+              <p>Writing opens in the Heartwritten app on a Mac for now, because that is where the camera reading runs. The setup takes a few minutes and is in the project’s README.</p>
+            </details>
+            <p class="fine">Heart rate and breathing are camera estimates, for feeling, not medicine. Built on the Presage SmartSpectra SDK.</p>
+          </section>
+        </div>
+        <aside class="notes" aria-label="Notes in the margin">
+          <ul id="pauses" class="pauses"></ul>
+        </aside>
+        <i id="crease-1" class="crease" hidden></i><i id="crease-2" class="crease" hidden></i>
       </article>
+      <div id="ghost" class="paper ghost" aria-hidden="true"></div>
     </div>
+    <p id="ink-hint" class="ink-hint" role="note" hidden></p>
     <nav class="controls" aria-label="Replay controls">
       <button data-speed="1" aria-pressed="true">Their pace</button>
       <button data-speed="2.5" aria-pressed="false">Faster</button>
