@@ -96,8 +96,8 @@ export function sealSvg(wave, { initial = '', bpm = 0, id = 'seal' } = {}) {
     <path d="${pathFrom(edge)}" fill="url(#${uid}-wax)"/>
     <path d="${pathFrom(rim)}" fill="url(#${uid}-press)" stroke="#5e0f15" stroke-opacity="0.55" stroke-width="1.4"/>
     <path d="${pathFrom(ring)}" fill="none" stroke="#f3c9c2" stroke-opacity="0.85" stroke-width="2.2" stroke-linejoin="round"/>
-    <text x="${C}" y="${C + 13}" text-anchor="middle" font-family="Iowan Old Style, Palatino, Georgia, serif" font-size="40" font-style="italic" fill="#f3c9c2" fill-opacity="0.9">${letter}</text>
-    ${bpmText ? `<text x="${C}" y="${C + 34}" text-anchor="middle" font-family="Iowan Old Style, Palatino, Georgia, serif" font-size="9" letter-spacing="2" fill="#f3c9c2" fill-opacity="0.7">${bpmText}</text>` : ''}
+    <text x="${C}" y="${C + 13}" text-anchor="middle" font-family="Literata, Iowan Old Style, Palatino, Georgia, serif" font-size="40" font-style="italic" fill="#f3c9c2" fill-opacity="0.9">${letter}</text>
+    ${bpmText ? `<text x="${C}" y="${C + 36}" text-anchor="middle" font-family="Literata, Iowan Old Style, Palatino, Georgia, serif" font-size="13" letter-spacing="1.5" fill="#f3c9c2" fill-opacity="0.7">${bpmText}</text>` : ''}
     <ellipse cx="${C - 30}" cy="${C - 42}" rx="20" ry="9" fill="#fff" fill-opacity="0.12" transform="rotate(-30 ${C - 30} ${C - 42})"/>
   </g>
 </svg>`;

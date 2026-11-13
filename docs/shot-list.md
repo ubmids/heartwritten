@@ -18,20 +18,20 @@ The script is the story. This is what to capture and in what order.
   environment printed, or anyone else's face.
 - Two sources:
   - **SCREEN**: the screen recording of the app, then the browser.
-  - **CAM**: your face. The app's own camera tile (top left of the writing
-    desk, with the red dot) is enough. A separate picture-in-picture of you is
+  - **CAM**: your face. The app's own camera tile (top right of the sheet,
+    where a stamp would go, with the red dot) is enough. A separate picture-in-picture of you is
     optional and belongs in shot 2 only.
 
 ## Shots
 
 | # | Time | Length | Source | What is on screen | Action | Voice-over or caption |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | 0:00 to 0:06 | 6 s | SCREEN | A plain typed chat message, then cut to the Heartwritten front page (heartwritten.vercel.app) with the ink specimen | Still, slow push in | "Handwritten letters told you how they felt to write. Typed ones don't." |
-| 2 | 0:06 to 0:18 | 12 s | SCREEN + CAM | The consent screen. Open "What the camera reads, and where it goes" for a beat. Tick "I'm the only person on camera, and I agree to this". Press **Turn on the camera**. The camera tile, red dot, pulse trace and bpm appear and settle | Move the pointer slowly. Hold two seconds on the live trace once the bpm shows | "Heartwritten asks first. Then it reads your pulse, breathing and smiles through the webcam, with the Presage SmartSpectra SDK. The measurement runs on this laptop." |
-| 3 | 0:18 to 0:38 | 20 s | SCREEN (camera tile visible) | Typing the letter. The words take their ink as they are typed. The bpm number and the trace move at the line that matters. The "smiling" mark lights once. A real pause of a few seconds before the last line | Type at your real pace. Speed this shot up to 2x in the edit if it runs long, but leave the pause at real speed | No voice. Typing sound only. Caption: "Live from the camera. Ink follows the heart rate." |
+| 1 | 0:00 to 0:06 | 6 s | SCREEN | A plain typed chat message, then cut to the Heartwritten front page (heartwritten.vercel.app), a letter writing itself with the heartline in its margin | Let it write for three seconds, slow push in | "Handwritten letters told you how they felt to write. Typed ones don't." |
+| 2 | 0:06 to 0:18 | 12 s | SCREEN + CAM | The consent screen. Open "What the camera reads, and where it goes" for a beat. Tick "I'm the only person on camera, and I agree to this". Press **Turn on the camera**. The sheet appears with the camera tile where the stamp goes (red dot), and in the margin strip the live pulse wave and the beats-a-minute figure appear and settle | Move the pointer slowly. Hold two seconds on the strip once the figure shows | "Heartwritten asks first. Then it reads your pulse, breathing and smiles through the webcam, with the Presage SmartSpectra SDK. The measurement runs on this laptop." |
+| 3 | 0:18 to 0:38 | 20 s | SCREEN (camera tile visible) | Typing the letter. The words take their ink as they are typed, and the heartline grows down the margin strip beside them. The figure and the line jump at the line that matters. The "smiling" mark shows once and those words get a pencil stroke. A real pause of a few seconds before the last line | Type at your real pace. Speed this shot up to 2x in the edit if it runs long, but leave the pause at real speed | No voice. Typing sound only. Caption: "Live from the camera. Ink follows the heart rate." |
 | 4 | 0:38 to 0:46 | 8 s | SCREEN | Press **Seal it with my heartbeat**. The wax seal appears, with "Sealed." and the private link | Hold on the seal for two seconds, then press **Copy link** | "You seal it with six seconds of your own pulse wave. No two seals are alike." |
-| 5 | 0:46 to 1:08 | 22 s | SCREEN (browser, no camera) | Paste the link into a browser. The envelope with the seal. Press the seal, it breaks. The letter writes itself: ink warming at the line that mattered, the margin heart beating with its number, the glow on the smiling words, "paused ... seconds" in the margin | Leave it on "Their pace" for the line that matters, then press **Faster** | "They watch it written again, at your pace. The ink warms where your heart sped up, and the page moves with your breathing." |
-| 6 | 1:08 to 1:16 | 8 s | SCREEN | Press **Show all**. The heartline under the signature and the closing card: "Quickest at", "Steadiest at" | Slow scroll to the card, hold | "At the end, where your heart was quickest, and where it was steadiest." |
+| 5 | 0:46 to 1:08 | 22 s | SCREEN (browser, no camera) | Paste the link into a browser. The envelope with the seal. Press the seal, it breaks. The letter writes itself: the heartline drawing down the margin strip beside each line, tall and red at the line that mattered as the ink warms, the figure and its beating mark at the pen's tip, the pencil stroke under the smiling words, "paused ... seconds" in the right margin, and the one-time note "the ink warms where ...'s heart sped up" | Leave it on "Their pace" for the line that matters, then press **Faster** | "They watch it written again, at your pace. The line in the margin is your heartbeat, and the ink warms where it sped up." |
+| 6 | 1:08 to 1:16 | 8 s | SCREEN | Press **Show all**. The whole heartline down the margin and the postscript: "P.S.", "Quickest at", "Steadiest at" | Slow scroll to the postscript, hold | "At the end, where your heart was quickest, and where it was steadiest." |
 | 7 | 1:16 to 1:20 | 4 s | SCREEN | Back to the envelope view with the line "This letter lives only in its link." | Still | "No server, no account, no video kept. Heartwritten." |
 
 Total: 80 seconds. If you need to cut to 60, drop shot 1 to 3 seconds, shot 3
@@ -44,10 +44,11 @@ demo video, and the template asks for a video "showing the live Presage
 signal(s)". So these must be visible:
 
 1. The consent tick before the camera turns on (shot 2).
-2. The live trace and bpm number changing while you are on camera (shots 2
-   and 3). Keep the camera tile in frame so it is plain the signal is live.
-3. The signal changing the result: ink colour, seal, breathing page, smile
-   glow (shots 3 to 6).
+2. The live pulse wave and the beats-a-minute figure in the margin strip
+   changing while you are on camera (shots 2 and 3). Keep the camera tile
+   (top right of the sheet) in frame so it is plain the signal is live.
+3. The signal changing the result: the margin heartline, ink colour, seal,
+   the pencil stroke under a smile (shots 3 to 6).
 
 ## Words to avoid in voice-over and captions
 

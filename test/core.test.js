@@ -6,7 +6,10 @@ import {
 } from '../src/shared/letter-format.js';
 import { diffText, LetterRecorder, opsFromCharTimes, normalizeWave, VITALS_HZ } from '../src/shared/recorder.js';
 import { VitalsTracker, resample, hintFor } from '../src/shared/vitals.js';
-import { Player, buildTimeline, bpmAt, inkFor, finalChars } from '../src/shared/playback.js';
+import { Player, buildTimeline, bpmAt, inkFor, inkAt, heat, featherAt, finalChars } from '../src/shared/playback.js';
+import { marginTrace, beatLength, beatHeight } from '../src/shared/heartline.js';
+import { inkHtml, foldHeight, stopAt } from '../src/shared/sheet.js';
+import { composeLetter } from '../src/shared/composeLetter.js';
 import { summarize, sentences, median, formatDuration, excerpt } from '../src/shared/summary.js';
 import { sealSvg } from '../src/shared/seal.js';
 import { SimulatedSource } from '../src/shared/sim-source.js';
@@ -253,4 +256,100 @@ test('simulated source drives the same tracker path', async () => {
   assert.ok(v.bpm > 55 && v.bpm < 90, `bpm ${v.bpm}`);
   assert.ok(v.pulseTrace.length > 100);
   assert.notEqual(v.breathPhase(), null);
+});
+
+// ---------------------------------------------------------------------------
+// The margin heartline, the ink and the sheet
+
+const lum = (rgb) => {
+  const [r, g, b] = rgb.match(/\d+/g).map((v) => { const x = v / 255; return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
+const contrast = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
+
+test('heat is how far the heart sits from the writer’s usual level', () => {
+  assert.equal(heat(66, 66), 0);
+  assert.equal(heat(0, 66), 0, 'no reading is not a calm reading, but it draws as calm');
+  assert.equal(heat(200, 66), 1);
+  assert.equal(heat(20, 66), -1);
+  assert.ok(heat(73, 66) > 0.4 && heat(73, 66) < 0.6);
+  assert.equal(inkFor(80, 66), inkAt(heat(80, 66)));
+});
+
+test('every ink the heart can choose is readable on the paper (WCAG AA)', () => {
+  const paper = 'rgb(246, 241, 230)';
+  for (let h = -1; h <= 1.001; h += 0.05) {
+    const c = contrast(inkAt(h), paper);
+    assert.ok(c >= 4.5, `ink at heat ${h.toFixed(2)} has contrast ${c.toFixed(2)}`);
+  }
+});
+
+test('the change in ink is unmistakable: calm, quick and slow are far apart', () => {
+  const rgb = (h) => inkAt(h).match(/\d+/g).map(Number);
+  const dist = (a, b) => Math.hypot(...a.map((x, k) => x - b[k]));
+  assert.ok(dist(rgb(0), rgb(1)) > 150, 'calm to racing');
+  assert.ok(dist(rgb(0), rgb(-1)) > 100, 'calm to slow');
+  assert.ok(dist(rgb(0), rgb(0.5)) > 100, 'calm to halfway');
+});
+
+test('only a quick heart feathers the ink', () => {
+  assert.equal(featherAt(0), 0);
+  assert.equal(featherAt(-1), 0);
+  assert.equal(featherAt(0.2), 0);
+  assert.ok(featherAt(0.5) >= 1);
+  assert.equal(featherAt(1), 3);
+});
+
+test('the heartline stands taller and tighter where the heart was quicker', () => {
+  assert.ok(beatLength(1) < beatLength(0) && beatLength(0) < beatLength(-1));
+  assert.ok(beatHeight(1) > beatHeight(0) * 2 && beatHeight(0) > beatHeight(-1));
+  const calm = marginTrace([{ y: 0, heat: 0 }, { y: 300, heat: 0 }]);
+  const quick = marginTrace([{ y: 0, heat: 1 }, { y: 300, heat: 1 }]);
+  assert.ok(quick.beats > calm.beats * 1.4, `${quick.beats} beats against ${calm.beats}`);
+  assert.ok(quick.peak > calm.peak * 2);
+  assert.match(calm.svg, /^<path d="M[\d. L-]+" stroke="rgb\(28, 34, 52\)"/);
+  assert.match(quick.svg, /stroke="rgb\(190, 48, 14\)"/);
+  assert.equal(calm.head.y, 300);
+});
+
+test('the heartline changes colour where the heart did, and goes quiet at a pause', () => {
+  const t = marginTrace([{ y: 0, heat: 0 }, { y: 100, heat: 0 }, { y: 140, heat: 1 }, { y: 240, heat: 1 }]);
+  const colours = new Set(t.svg.match(/stroke="[^"]+"/g));
+  assert.ok(colours.size > 4, 'it warms through several inks, not in one jump');
+  const loud = marginTrace([{ y: 0, heat: 0.5 }, { y: 60, heat: 0.5 }]);
+  const quiet = marginTrace([{ y: 0, heat: 0.5 }, { y: 60, heat: 0.5 }], { rests: [{ y: 30, len: 200 }] });
+  assert.ok(quiet.peak < loud.peak * 0.2, 'the pen rests');
+  assert.deepEqual(marginTrace([]), { svg: '', head: null, beats: 0, peak: 0 });
+});
+
+test('ink is drawn in runs, smiles are underlined together, and nothing unsafe gets through', () => {
+  const units = [...'<b>hi</b> you'].map((ch, i) => ({ ch, heat: i < 4 ? 0 : 1, smile: i >= 9 }));
+  const html = inkHtml(units, new Map([[4, '<i class="m"></i>']]));
+  assert.ok(!html.includes('<b>'), 'text is escaped');
+  assert.match(html, /&lt;b&gt;h/);
+  assert.match(html, /<i class="m"><\/i><span style="color:rgb\(190, 48, 14\)" class="f3">/);
+  assert.equal(html.match(/class="smiled"/g).length, 1, 'one stroke under the whole smile');
+  assert.match(html, /<span class="smiled"><span[^>]*> you<\/span><\/span>$/);
+});
+
+test('the sheet opens to its first fold, grows with the writing, and never outgrows the letter', () => {
+  assert.deepEqual(foldHeight(100, 900), { height: 300, panel: 300 });
+  assert.deepEqual(foldHeight(100, 1500), { height: 320, panel: 500 }, 'a long sheet does not open onto a wall of blank paper');
+  assert.equal(foldHeight(420, 900).height, 420);
+  assert.equal(foldHeight(2000, 900).height, 900);
+  assert.equal(foldHeight(100, 900, true).height, 900);
+  assert.deepEqual(foldHeight(50, 300), { height: 300, panel: 0 }, 'a short note has no folds');
+  assert.deepEqual(foldHeight(50, 0), { height: 0, panel: 0 });
+  assert.equal(stopAt([{ i: 0 }, { i: 4 }, { i: 8 }], 5).i, 4);
+});
+
+test('a composed letter is always marked as simulated, and its heart follows the script', () => {
+  const { letter, text } = composeLetter([
+    ['type', 'Quiet start. '], ['bpm', 95], ['type', 'Then the news arrives and it is wonderful! '], ['pause', 9000], ['bpm', 60], ['type', 'And calm again, slowly, in the end.'],
+  ], { from: 'A', sim: false });
+  assert.equal(letter.sim, 1, 'a scripted heartbeat can never pass for a measured one');
+  assert.equal(finalText(letter), text);
+  assert.ok(Math.max(...letter.vit.bpm) > 88 && Math.min(...letter.vit.bpm.filter(Boolean)) < 66);
+  assert.equal(buildTimeline(letter).pauses.length, 1);
+  validate(letter);
 });

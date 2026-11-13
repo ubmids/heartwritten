@@ -55,6 +55,12 @@ You choose, before you start:
   requests, it loads nothing from anywhere else, and it sets no cookies and
   uses no browser storage. A letter saved as a file opens with no network at
   all.
+- **Link previews.** If you paste a letter's link into a chat app that draws
+  link previews, that app fetches the reader page and its preview picture to
+  draw one, as it would for any link. It asks for the address without the `#`
+  part, so it gets the same page everyone gets and not the letter. The
+  preview shows a general picture and title, never anything from your letter.
+  The reader page itself never loads that picture.
 - **The app itself** is built on Electron (Chromium). On Windows and Linux,
   Chromium may download a spelling dictionary the first time you type; the
   spell check itself runs on your computer. On macOS it uses the system's own

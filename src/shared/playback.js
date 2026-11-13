@@ -121,24 +121,48 @@ function splitUnits(s, t) {
 }
 
 /**
- * Ink colour for a heartbeat relative to the writer's own resting level.
- * At rest the ink is iron-gall blue-black. A quicker heart warms it through
- * claret to vermilion; a slower one cools it to a clear blue-black.
+ * How far a heartbeat sits from the writer's own usual level, from -1
+ * (slower) through 0 (their usual) to 1 (much quicker). Everything the page
+ * draws from the heart, the ink and the margin line, starts from this number.
+ */
+export const HEAT_SPAN = 14;   // beats a minute above the usual that count as "racing"
+
+export function heat(bpm, baseline) {
+  if (!(bpm > 0) || !(baseline > 0)) return 0;
+  return Math.max(-1, Math.min(1, (bpm - baseline) / HEAT_SPAN));
+}
+
+/**
+ * Ink colour. At the writer's usual heart rate the ink is iron-gall
+ * blue-black. A quicker heart warms it through claret to vermilion; a slower
+ * one cools it to a clear blue. Every stop passes WCAG AA on the paper.
  */
 export const INK = {
   calm: [28, 34, 52],
-  warm: [[112, 28, 48], [184, 52, 28]],
-  cool: [32, 72, 150],
+  warm: [[140, 24, 44], [190, 48, 14]],
+  cool: [24, 78, 160],
 };
 
-export function inkFor(bpm, baseline) {
+export function inkAt(h) {
   const rgb = (c) => `rgb(${c[0]}, ${c[1]}, ${c[2]})`;
-  if (!(bpm > 0) || !(baseline > 0)) return rgb(INK.calm);
-  const d = Math.max(-1, Math.min(1, (bpm - baseline) / 16));
+  const d = Math.max(-1, Math.min(1, h || 0));
   const mix = (a, b, f) => a.map((x, k) => Math.round(x + (b[k] - x) * f));
   if (d < 0) return rgb(mix(INK.calm, INK.cool, -d));
   if (d <= 0.5) return rgb(mix(INK.calm, INK.warm[0], d / 0.5));
   return rgb(mix(INK.warm[0], INK.warm[1], (d - 0.5) / 0.5));
+}
+
+export function inkFor(bpm, baseline) {
+  return inkAt(heat(bpm, baseline));
+}
+
+/**
+ * How much the ink feathers into the paper: 0 (crisp) to 3 (a soft bleed).
+ * Only a quick heart feathers; calm and slow ink stays crisp.
+ */
+export function featherAt(h) {
+  if (!(h > 0.3)) return 0;
+  return h < 0.55 ? 1 : h < 0.8 ? 2 : 3;
 }
 
 /** Final characters of the letter, each with the time it was typed. */

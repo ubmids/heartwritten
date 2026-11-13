@@ -3,8 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; worker-src 'self' blob:; media-src blob:; script-src 'self'">
-<meta name="color-scheme" content="light dark">
-<title>Heartwritten</title>
+<meta name="color-scheme" content="dark">
+<title>Write a letter · Heartwritten</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Write a letter that carries your heartbeat.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%239e2b25'/%3E%3Ccircle cx='32' cy='32' r='21' fill='none' stroke='%236c1219' stroke-width='2'/%3E%3Cpath d='M12 34h11l4-6 5 17 6-27 5 16h9' fill='none' stroke='%23f3c9c2' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="./writer.css">
 </head>
 <body data-step="consent">
@@ -57,30 +60,33 @@
 
   <!-- 2. Writing -->
   <section class="step step-write" aria-label="Write your letter">
-    <header class="live" aria-live="polite">
-      <div class="cam"><video id="preview" autoplay playsinline muted></video><span class="rec" title="Camera on"></span></div>
-      <div class="live-heart">
-        <canvas id="wave" width="920" height="96" aria-hidden="true"></canvas>
-        <div class="live-stats">
-          <span><b id="live-bpm">—</b> bpm</span>
-          <span><b id="live-br">—</b> breaths</span>
-          <span id="live-smile" class="smile-dot">smiling</span>
+    <div class="sheet-wrap">
+      <div id="paper" class="paper">
+        <aside id="strip" class="strip" aria-label="Your heartbeat, live">
+          <div id="live" class="live" data-state="connecting">
+            <canvas id="wave" width="208" height="84" aria-hidden="true"></canvas>
+            <svg class="quiet" viewBox="0 0 104 40" aria-hidden="true"><path d="M2 24h30l5-7 5 12 5-5h55"/></svg>
+            <p id="hint" class="hint" role="status">Settling in…</p>
+            <p class="live-line"><b id="live-br">·</b> <span>breaths<span class="u1"> a minute</span></span></p>
+            <p id="live-smile" class="smile-dot">smiling</p>
+          </div>
+          <svg id="trace" class="trace" aria-hidden="true"></svg>
+          <span id="heart" class="heart" aria-hidden="true" hidden></span>
+          <p id="pulse" class="pulse"><b id="live-bpm" class="figure">·</b><span class="unit"><span class="u1">beats </span>a minute</span></p>
+        </aside>
+        <div id="page" class="page">
+          <p id="sim-flag" class="cap sim" hidden>Simulated heartbeat</p>
+          <div class="head-row">
+            <label class="field-to"><span>To</span><input id="to" maxlength="60" placeholder="Their name" autocomplete="off"></label>
+            <div class="cam" title="Your camera"><video id="preview" autoplay playsinline muted></video><span class="rec" title="Camera on"></span></div>
+          </div>
+          <div id="ink-field" class="ink-field">
+            <div id="ink-mirror" class="ink-mirror" aria-hidden="true"></div>
+            <textarea id="body" spellcheck="true" placeholder="Start writing. Take your time; pauses are kept too." aria-label="Your letter"></textarea>
+          </div>
+          <label class="field-from"><span>From</span><input id="from" maxlength="60" placeholder="Your name" autocomplete="off"></label>
         </div>
       </div>
-      <div class="live-side">
-        <p id="hint" class="hint">Settling in…</p>
-        <p id="sim-flag" class="pill sim" hidden>Simulated heartbeat</p>
-        <button id="stop-camera" class="btn ghost small">Stop camera</button>
-      </div>
-    </header>
-
-    <div class="paper">
-      <label class="field-to"><span>To</span><input id="to" maxlength="60" placeholder="Their name" autocomplete="off"></label>
-      <div class="ink-field">
-        <div id="ink-mirror" class="ink-mirror" aria-hidden="true"></div>
-        <textarea id="body" spellcheck="true" placeholder="Start writing. Take your time; pauses are kept too." aria-label="Your letter"></textarea>
-      </div>
-      <label class="field-from"><span>From</span><input id="from" maxlength="60" placeholder="Your name" autocomplete="off"></label>
     </div>
 
     <footer class="write-foot">
@@ -88,6 +94,7 @@
         <span id="clock" class="note">Nothing is recorded until you type.</span>
         <span id="notice" class="note"></span>
       </div>
+      <button id="stop-camera" class="text-btn">Stop camera</button>
       <button id="seal-it" class="btn primary" disabled>Seal it with my heartbeat</button>
     </footer>
   </section>
@@ -95,16 +102,24 @@
   <!-- 3. Sealed -->
   <section class="step step-sealed" aria-labelledby="sealed-title">
     <div class="sealed">
-      <div id="seal" class="seal"></div>
       <h2 id="sealed-title">Sealed.</h2>
       <p id="sealed-sub" class="lede"></p>
+      <div class="envelope" aria-hidden="true">
+        <svg class="flap" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <path class="flap-side" d="M0 100 L50 52 L100 100"/>
+          <path class="flap-top" d="M0 0 H100 L50 58 Z"/>
+        </svg>
+        <div id="seal" class="seal"></div>
+      </div>
 
       <div class="card share">
-        <p class="label">Send them this private link</p>
+        <p class="label" id="share-label">Send them this private link</p>
         <div class="link-row">
-          <input id="link" readonly aria-label="Letter link">
+          <input id="link" readonly aria-labelledby="share-label">
           <button id="copy" class="btn primary">Copy link</button>
+          <button id="share" class="btn secondary" hidden>Share</button>
         </div>
+        <p id="copied" class="copied" role="status" hidden></p>
         <p id="link-note" class="note"></p>
       </div>
 
@@ -112,7 +127,7 @@
         <button id="preview-letter" class="btn secondary">Open it as they will</button>
         <button id="save-file" class="btn secondary">Save as a file</button>
       </div>
-      <button id="again" class="btn link">Write another letter</button>
+      <button id="again" class="text-btn again">Write another letter</button>
       <p class="fine">The camera is off. This letter isn’t saved on this computer. It exists only in that link and any file you save, so closing this window forgets it.</p>
     </div>
   </section>

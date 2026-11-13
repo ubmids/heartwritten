@@ -17,14 +17,14 @@ You write a letter on your laptop. While you type, SmartSpectra reads your pulse
 The person you send it to taps the seal, it cracks, and they watch your letter being written again at your real pace:
 
 - the **ink warms** from blue-black through claret to vermilion where your heart sped up, and cools again as you calmed down
-- a small **heart in the margin beats** at your rate, sentence by sentence
-- the **paper rises and falls** with your breathing
-- words you wrote **while smiling glow**
-- **pauses** stay in, and the long ones are noted in the margin beside the line ("paused 14 seconds")
-- under your signature, a **heartline** draws your whole heart rate across the letter
+- a **heartline runs down the margin**, on a strip of chart paper bound into the letter, drawn beside each line as it is written: taller, tighter and warmer where your heart was quicker, with the figure and a beating mark at the pen's tip
+- the quick-hearted words **feather** a little into the paper, and the calm ones stay crisp
+- a faint wash on the strip **swells and ebbs** with your breathing
+- words you wrote **while smiling** get a pencil stroke under them
+- **pauses** stay in, and the long ones are pencilled in the margin beside the line ("paused 9 seconds")
 - if you allow it, they see the words you **typed and took back**
 
-At the end, a card shows where your heart was quickest and where it was steadiest, with the sentences.
+The letter ends with a postscript: where your heart was quickest and where it was steadiest, with the sentences.
 
 There's no backend, no database and no account. A sealed letter lives entirely inside its link (in the part after `#`, which browsers never send anywhere) or in a single HTML file you can attach to an email.
 
@@ -51,10 +51,10 @@ Every signal changes something you can see or hold in the finished letter. None 
 
 | SmartSpectra signal | What it becomes |
 | --- | --- |
-| `cardio.pulseRate` (stable readings only) | The colour of each character's ink, measured against *your own* median for that letter, so a writer with a slow heart and one with a quick heart both get a full range. It also sets the beat of the margin heart, and finds the quickest and steadiest sentences. |
+| `cardio.pulseRate` (stable readings only) | The colour of each character's ink, measured against *your own* median for that letter, so a writer with a slow heart and one with a quick heart both get a full range. It also draws the heartline down the margin, sets the beat of the mark at the pen's tip, and finds the quickest and steadiest sentences. |
 | `cardio.arterialPressureTrace` | The wax seal. Six seconds of the pulse wave, wrapped into a ring around your initial. |
-| `breathing.upperTrace`, `breathing.rate` | The page breathing during replay. |
-| `face.expression` (happy) | The glow on words you wrote smiling. Optional, and it's the only face metric I request. |
+| `breathing.upperTrace`, `breathing.rate` | A faint wash on the margin strip that swells and ebbs during replay. |
+| `face.expression` (happy) | The pencil stroke under words you wrote smiling. Optional, and it's the only face metric I request. |
 | Validation status | Gentle hints while you write: "move a little closer or further", "a little more light, please". |
 
 A few things I cared about:
