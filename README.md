@@ -2,10 +2,11 @@
 
 **Letters that carry the heartbeat you wrote them with.**
 
-You write a letter at your desk. While you type, your laptop camera reads your
-heart rate, pulse wave, breathing and smiles with the
-[Presage SmartSpectra SDK](https://physiology.presagetech.com). When you're
-done, you seal it with a wax seal pressed from your own pulse wave.
+Heartwritten is a desktop app for writing a letter to someone you care about.
+While you type, your laptop camera reads your heart rate, pulse wave, breathing
+and smiles with the [Presage SmartSpectra SDK](https://physiology.presagetech.com),
+and each word takes the ink of the heartbeat that wrote it. When you're done,
+you seal it with a wax seal pressed from six seconds of your own pulse wave.
 
 The person you send it to opens the envelope and watches the letter being
 written again at your pace: the pauses where you thought, the sentence you
@@ -17,23 +18,37 @@ The letter never goes to a server. A sealed letter lives inside its link (in
 the part after `#`, which browsers never send) or inside a single HTML file.
 There is no account and no database.
 
-## Try it
+| Writing (camera on) | Sealed | Read by the person you sent it to |
+| --- | --- | --- |
+| ![The writing desk with the live pulse trace, heart rate and breathing above the letter](docs/screens/redesign-3-write.png) | ![A wax seal pressed from the writer's pulse wave, with the private link](docs/screens/redesign-4-sealed.png) | ![The replayed letter, its ink warming and cooling with the writer's heart, and the heartline under the signature](docs/screens/after-letter.png) |
 
-You need Node 20 or newer and a webcam.
+These screenshots were taken in simulated mode, which is why they say
+"Simulated heartbeat". With a real key the same screens show your own signals.
+
+## Try it in two minutes (no key, no camera)
+
+You need Node 20 or newer.
 
 ```
 npm install
 npm run start:sim
 ```
 
-`start:sim` runs the whole app with simulated signals, so you can try it with
-no key and no camera. Letters written this way are marked as samples,
-everywhere. The first start downloads the Electron runtime (about 100 MB), so
-give it a minute.
+`start:sim` runs the whole app with simulated signals, so you can try every
+step (consent, writing, sealing, opening the letter) with no API key and no
+camera. Letters written this way are marked as samples, everywhere. The first
+start downloads the Electron runtime (about 100 MB), so give it a minute.
 
-`npm test` runs the tests and needs no key either.
+Or skip the install and open a finished letter in your browser:
+[heartwritten.vercel.app/sample](https://heartwritten.vercel.app/sample). Its
+heartbeat is simulated, and it says so. `npm run sample` builds the same letter
+locally as `dist/sample-letter.html`.
 
-To read the real thing:
+`npm test` runs the 28 tests and needs no key either.
+
+## Run it with your own heartbeat
+
+You need a webcam and a SmartSpectra API key.
 
 1. Get an API key from [physiology.presagetech.com](https://physiology.presagetech.com).
 2. Put it in a file called `.smartspectra-key` in this folder (it's git-ignored),
@@ -48,11 +63,6 @@ The SDK ships native libraries for macOS on Apple silicon, Linux (x64 and arm64)
 and Windows x64. Heartwritten has been run on macOS on Apple silicon only.
 Measurement runs on your computer. Presage's documentation says the SDK needs a
 network connection only so Presage can check the key.
-
-To see a finished letter without the app, open the sample at
-https://heartwritten.vercel.app/sample, or run `npm run sample` and open
-`dist/sample-letter.html` in a browser. The sample's signals are simulated,
-and it says so.
 
 ## Sharing by link
 

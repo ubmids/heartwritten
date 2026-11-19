@@ -39,7 +39,8 @@ You choose, before you start:
   service only to check the API key, so it needs a network connection while
   measuring. Presage says its telemetry does not include frames or vitals. Telemetry
   is off in Heartwritten unless you turn it on; if you do, Presage receives
-  session summaries and device details linked to your API key. The SDK is
+  session summaries, device details and device readiness diagnostics
+  linked to your API key. The SDK is
   Presage's own code, so what it sends is Presage's statement, not something
   Heartwritten can enforce. Heartwritten's own code makes no network requests.
 - **When you seal it**, the letter is packed into a token that lives in the link

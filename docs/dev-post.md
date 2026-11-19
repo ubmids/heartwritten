@@ -2,6 +2,7 @@
 title: "Heartwritten: letters that carry the heartbeat you wrote them with"
 published: false
 tags: devchallenge, presagechallenge, electron, javascript
+cover_image: https://raw.githubusercontent.com/ubmids/heartwritten/main/docs/screens/cover.png
 ---
 
 *This is a submission for the [Presage SmartSpectra SDK Challenge](https://dev.to/challenges/presage-2026-11-04).*
@@ -16,7 +17,7 @@ You write a letter on your laptop. While you type, SmartSpectra reads your pulse
 
 The person you send it to taps the seal, it cracks, and they watch your letter being written again at your real pace:
 
-- the **ink warms** from blue-black through claret to vermilion where your heart sped up, and cools again as you calmed down
+- the **ink warms** from blue-black through claret to vermilion where your heart sped up, and cools again as your heart slowed
 - a small **heart in the margin beats** at your rate, sentence by sentence
 - the **paper rises and falls** with your breathing
 - words you wrote **while smiling glow**
@@ -25,6 +26,8 @@ The person you send it to taps the seal, it cracks, and they watch your letter b
 - if you allow it, they see the words you **typed and took back**
 
 At the end, a card shows where your heart was quickest and where it was steadiest, with the sentences.
+
+![A replayed letter: the ink is blue-black where the writer's heart was steady and claret where it sped up, a pause is noted in the margin, and a heartline runs under the signature. This sample uses a simulated heartbeat.](https://raw.githubusercontent.com/ubmids/heartwritten/main/docs/screens/after-letter.png)
 
 There's no backend, no database and no account. A sealed letter lives entirely inside its link (in the part after `#`, which browsers never send anywhere) or in a single HTML file you can attach to an email.
 
@@ -44,6 +47,8 @@ Open a sample letter in your browser: [heartwritten.vercel.app/sample](https://h
 Repo: [github.com/ubmids/heartwritten](https://github.com/ubmids/heartwritten) (MIT).
 
 Setup is in the README: `npm install`, put your SmartSpectra key in `.smartspectra-key`, then `npm start`. `npm run start:sim` runs the whole thing with simulated signals if you want to try it without a key or a camera, and `npm test` runs the 28 tests.
+
+I built it with Claude Code as my coding assistant, which is why some commits in the history carry its name.
 
 ## How It Responds to Human Signals
 
@@ -82,8 +87,8 @@ I'm entering both.
 - **Storage:** nothing is saved while you write. A sealed letter exists only in the link or file you choose to send. Heartwritten has no backend, no database and no account.
 - **Sharing:** only with whoever you send the link or file to. The reader is one static page. Its host sees an ordinary page request, as any website does, but never the letter, because the letter sits in the `#` part of the link. Once loaded, the page's Content Security Policy stops it sending anything anywhere. It sets no cookies and uses no browser storage.
 - **Retention and deletion:** a letter lasts as long as its link or file. Delete those and it's gone, though anyone you sent it to keeps their copy, as with any letter. Closing the writer forgets an unsent letter.
-- **SDK telemetry:** off by default (`enableTelemetry: false`). You can turn it on in the consent screen. Presage says its telemetry contains session summaries and device details linked to the key, never frames or vitals.
-- **AI services:** none. All the physiology comes from SmartSpectra.
+- **SDK telemetry:** off by default (`enableTelemetry: false`). You can turn it on in the consent screen. If you do, Presage says its telemetry contains session summaries, device details and device readiness diagnostics linked to the key, never frames or vitals.
+- **AI services:** the app calls none. All the physiology comes from SmartSpectra.
 - **Not medical:** these are camera estimates, for feeling, not medicine. Heartwritten makes no diagnosis, gives no health advice, supports no medical decision and isn't for monitoring anyone.
 
 The full write-up is in [PRIVACY.md](https://github.com/ubmids/heartwritten/blob/main/PRIVACY.md).
